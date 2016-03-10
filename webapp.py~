@@ -1,0 +1,12 @@
+from flask import Flask
+from libs.mylib import make_string
+
+app = Flask(__name__)
+
+@app.route("/")
+@app.route("/abc")
+def hello():
+    return make_string(8)
+
+if __name__ == "__main__":
+    app.run(debug=True)
