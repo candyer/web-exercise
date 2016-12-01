@@ -1,5 +1,0 @@
-def make_string(num):
-    str = ''
-    for i in range(num):
-        str += '{:0>3} '.format(i)
-    return str
