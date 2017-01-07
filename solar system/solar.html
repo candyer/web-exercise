@@ -1,0 +1,118 @@
+<!Doctype html>
+<html>
+	<head>
+		<title>solar system</title>
+		<style>
+			html {
+				background: url("http://i.ytimg.com/vi/qbzFSfWwp-w/maxresdefault.jpg");
+				background-size: cover;
+			}
+			.sphere {
+				border-radius: 50%;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
+			}
+
+			.sun {
+				height: 180px;
+				width: 180px;
+				background: radial-gradient( circle at 90px 90px, #ea5732, #000);
+			}
+
+			@keyframes mercury-rot {
+				from {
+					transform: rotate(0deg)
+					           translate(-120px)}
+				to {
+					transform: rotate(360deg)
+					           translate(-120px)}}
+
+			@keyframes venus-rot {
+				from {
+					transform: rotate(0deg)
+					           translate(-190px)}
+				to {
+					transform: rotate(360deg)
+					           translate(-190px)}}
+
+			@keyframes earth-rot {
+				from {
+					transform: rotate(0deg)
+					           translate(-290px)}
+				to {
+					transform: rotate(360deg)
+					           translate(-290px)}}
+
+			@keyframes mars-rot {
+				from {
+					transform: rotate(0deg)
+					           translate(-380px)}
+				to {
+					transform: rotate(360deg)
+					           translate(-380px)}}	
+			.track1 {
+				height: 240px;
+				width: 240px;
+				border: 0.1em solid #4f5154;}
+
+			.track2 {
+				height: 380px;
+				width: 380px;
+				border: 0.1em solid #4f5154;}
+
+			.track3 {
+				height: 580px;
+				width: 580px;
+				border: 0.1em solid #4f5154;}	
+
+			.track4 {
+				height: 760px;
+				width: 760px;
+				border: 0.1em solid #4f5154;}
+
+			.mercury {
+				height: 20px;
+				width: 20px;
+				background: radial-gradient( circle at 20px 10px, olive, #000);
+				animation: mercury-rot 3s infinite linear;}
+
+			.venus {
+				height: 70px;
+				width: 70px;
+				background: radial-gradient( circle at 60px 30px, #f4c141, #000);
+				animation: venus-rot 4s infinite linear;}
+
+			.earth {
+				height: 70px;
+				width: 70px;
+				background: radial-gradient( circle at 100px 50px, #7aa5d3, #000);
+				animation: earth-rot 7s infinite linear;}
+
+			.mars {
+				height: 35px;
+				width: 35px;
+				background: radial-gradient( circle at 75px 40px, salmon, #000);
+				animation: mars-rot 9s infinite linear;}
+
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<div class="sphere track1"></div>
+			<div class="sphere track2"></div>
+			<div class="sphere track3"></div>
+			<div class="sphere track4"></div>
+			<div class="sphere sun"></div>
+			<div class="sphere mercury"></div>
+			<div class="sphere venus"></div>
+			<div class="sphere earth"></div>
+			<div class="sphere mars"></div>
+		</div>
+	</body>
+	
+</html>
