@@ -1,0 +1,109 @@
+<!Doctype html>
+<html>
+	<head>
+		<title>Dandelion</title>
+		<style>
+			html {
+				background: black;
+				background-size: cover;
+				text-align: center;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<marquee bgcolor=darkgrey width="20%">click on the dandelion</marquee>
+
+		<script>
+			let petalDimentions = [
+				['100px', '0'],
+				['70px', '38px'],
+				['40px', '80px']
+			];
+
+			function generateImage(width, top) {
+				let img = document.createElement('img')
+				img.src = '3.png';
+				img.style.width = width;
+				img.style.top = top;
+				img.style.bottom = "0";
+				img.style.left = "0";
+				img.style.right = "0";
+				img.style.position = "absolute";
+				img.style.margin = "auto";
+				return img;
+			}
+
+			dirChoices = ['top', 'bottom', 'left', 'right'];
+			distanceChoices = ["0%","10%","20%","30%","40%","50%","60%","70%","80%","90%"];
+			degrs = [0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340];
+			timeChoices = [3,4,5,6,7,8];
+			let pos = []
+
+			function blow(el) {
+				console.log("i got blown on !", el);
+				console.log(petals);
+				petals.forEach(function(petal, i) {
+					console.log(`me too: ${i}`);
+					let randomDeg = degrs[Math.floor(Math.random()*degrs.length)];
+					let randomDirection = dirChoices[Math.floor(Math.random()*dirChoices.length)];
+					let randomDistance = distanceChoices[Math.floor(Math.random()*distanceChoices.length)];
+					let newRandomDistance = distanceChoices[Math.floor(Math.random()*distanceChoices.length)];
+					let randomSpeed = timeChoices[Math.floor(Math.random()*timeChoices.length)];
+					petal.style.transform = `rotate(0deg)`;
+
+					if (randomDirection == "left") {
+						petal.style.left = randomDistance;
+						petal.style.top = newRandomDistance;
+						otherDirection = "top";
+					}
+
+					if (randomDirection == "right") {
+						petal.style.right = randomDistance;
+						petal.style.bottom = newRandomDistance;
+						otherDirection = "bottom";
+					}
+
+					if (randomDirection == "top") {
+						petal.style.top = randomDistance;
+						petal.style.right = newRandomDistance;
+						otherDirection = "right";
+					}
+
+					if (randomDirection == "bottom") {
+						petal.style.bottom = randomDistance;
+						petal.style.left = newRandomDistance;
+						otherDirection = "left";
+					}		
+
+					petal.style.transition = randomDirection + " " + randomSpeed + "s ease-out, " 
+										   + otherDirection + " " + randomSpeed + "s ease-out, " 
+										   + "transform " + randomSpeed + "s ease-out";
+
+					setTimeout(function(){
+						petal.style.bottom = "210%";
+						petal.style.transition = "bottom" + " " + randomSpeed+1 + "s ease-out";
+					}, 8000);
+
+					petal.removeEventListener('click', blow); //make sure the event can only be clicked once
+
+				})
+			}
+
+			let petals = []
+			const p = 10
+			for (let i = 0; i < p; i++ ) {
+				let degree = (360 / p) * i
+				petalDimentions.forEach(function(dimentions) {
+					petal = generateImage(dimentions[0], dimentions[1])
+					petal.style.transformOrigin = "40% 100%";
+					petal.style.transform = `rotate(${degree}deg)`;
+					document.body.appendChild(petal);
+					petal.addEventListener('click', blow);
+					petals.push(petal);
+				})
+			}
+		</script>
+	</body>
+</html>
