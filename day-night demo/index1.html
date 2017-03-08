@@ -1,0 +1,81 @@
+<!Doctype html>
+<html>
+
+	<head>
+		<title></title>
+		<style>
+			html {
+				background: lightblue;
+			}
+
+			.cloud {
+				top:0;
+				position: absolute;
+				width: 30%;
+			}
+
+			#land {
+				width: 100%;
+				bottom: 0;
+				position: absolute;
+				left: 0;
+				margin: 0;
+			}
+
+			.sun {
+				left: 45%;
+				bottom: 10%;
+				width: 10%;
+				position: absolute;
+				margin: auto;
+				animation: sun-rot 8s linear infinite;
+			}
+
+			.moon {
+				right: 45%;
+				bottom: 10%;
+				width: 10%;
+				position: absolute;
+				margin: auto;
+				animation: moon-rot 8s linear infinite;
+			}
+
+			@keyframes sun-rot {
+				from {
+					transform: rotate(0deg)
+								translate(500%)
+				}
+				to {
+					transform: rotate(360deg)
+								translate(500%)
+				}
+			}
+
+			@keyframes moon-rot {
+				from {
+					transform: rotate(0deg)
+								translate(500%)
+				}
+				to {
+					transform: rotate(-360deg)
+								translate(500%)
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<div>
+				<img class = "cloud" src = "cloud.png">
+				<img class = "sun" src = "sun.png">
+				<img class = "moon" src="moon.png">
+				<img id = "land" src="land.png">
+			</div>
+			
+		</div>
+		<script>
+		</script>
+	</body>
+	
+</html>
