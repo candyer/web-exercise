@@ -1,3 +1,3 @@
 # web-exercise
 
-learning Javascript by creating small web page.
+learning Javascript by creating small web pages.
