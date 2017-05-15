@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Canvas drawing</title>
+		<link rel="stylesheet"  href='style.css'></link>
+	</head>
+
+	<body>
+		<div class="controls">
+			<label for="lineWidth">Line Width:</label>
+			<input type="range" class="line" min="1" max="100" value="10" data-sizing="px">
+			<label for="base">Color Picker:</label>
+			<input type="color" class="clr" value="#BADA55">
+			<label for="clear">Clear:</label>
+			<button class="clear" value="back to origin">back to origin </button>
+		</div>
+
+		<canvas id="draw" width="800" height="800"></canvas>
+		<script src="main.js"></script>
+	</body>
+
+</html>
