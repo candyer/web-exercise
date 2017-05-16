@@ -69,6 +69,10 @@ function move_one_step(n) {
 
 function geo(x1, y1, x2, y2, dist, step){
 	let tmp = (2 * radius + dist) / (2 * dist);
+	if (x1 == x2 && y1 == y2) {
+		// we can just delete this ball, or move new ball a little bit like this：
+		x1 += 1
+	}
 	if (x1 < x2 && y1 == y2) {
 		x1 -= step;
 		x2 += step;
