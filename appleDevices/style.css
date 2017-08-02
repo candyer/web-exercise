@@ -1,5 +1,4 @@
 
-
 html {
 	background: lightgrey;
 }
@@ -22,8 +21,7 @@ p {
 	transition: opacity 0.5s 0.5s;
 }
 
-
-/*iPhone*//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
+/*iPhone*//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
 .iPhscreen {
 	height: 90px;
 	width: 51px;
@@ -31,15 +29,30 @@ p {
 	overflow: hidden;
 	transition: background 0.5s;
 	border-top: 16px;
-	border-left: 4px;
-	border-right: 4px;
+	border-left: 3px;
+	border-right: 3px;
 	border-style: solid;
 	border-color: black;
 	border-radius: 8px 8px 0px 0px;
 	margin-right: 10px;
 }
 
-/*hover effect*//**//**//**//**//**//**//**//**/
+.iPhlogoBar {
+	height: 20px;
+	width: 57px;
+	background: black;
+	border-radius: 0px 0px 8px 8px;
+} 
+
+.iPhtouch {
+	height: 9px;
+	width: 9px;
+	border-radius: 50px;
+	border: 1.5px solid grey;
+	margin-left: 21px;
+}
+
+/*hover effect*//**//**//**//**//**/
 .iPhscreen p {
 	padding-top: 10px;
 	font-size: 100%;
@@ -53,32 +66,10 @@ p {
 .iPhscreen:hover p {
 	opacity: 1;
 }
-/**//**//**//**//**//**//**//**//**//**//**/
-
-.iPhlogoBar {
-	height: 20px;
-	width: 59px;
-	background: black;
-	border-radius: 0px 0px 8px 8px;
-} 
-
-.iPhtouch {
-	height: 9px;
-	width: 9px;
-	border-radius: 50px;
-	border: 1.5px solid grey;
-	margin-left: 21px;
-}
+/**//**//**//**//**//**//**//**/
 
 
-/*iMac*//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
-.iMac {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin-right: 10px;
-}
+/*iMac*//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
 
 .iMacscreen{
 	height: 273px;
@@ -88,21 +79,8 @@ p {
 	transition: background 0.5s;
 	border: solid black 26px;
 	border-radius: 15px 15px 0px 0px;
+	margin-right: 10px;
 }
-
-/*hover effect*//**//**//**//**//**//**//**//**/
-.iMacscreen p {
-	padding-top: 100px;
-}
-
-.iMacscreen:hover{
-	background: rgba(0, 0, 0, 0);
-}
-
-.iMac:hover .iMacscreen p {
-	opacity: 1;
-}
-/**//**//**//**//**//**//**//**//**//**//**/
 
 .iMaclogoBar {
 	height: 60px;
@@ -117,21 +95,28 @@ p {
 	background: rgba(133, 136, 138, 0.9) ;
 	border: 70px solid lightgrey;
 	border-top: 0;
-	border-bottom: 50px solid rgba(133, 136, 138, 0.7);
+	border-bottom: 50px solid rgba(133, 136, 138, 1);
 	border-radius: 10px;
 	box-shadow: 0px 7px 0px -3px rgba(71, 71, 71, 1) ;
 	margin: 0 auto;
 }
 
-
-/*iPad*//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
-.iPad {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+/*hover effect*//**//**//**//**//**/
+.iMacscreen p {
+	padding-top: 100px;
 }
 
+.iMacscreen:hover{
+	background: rgba(0, 0, 0, 0);
+}
+
+.iMacscreen:hover  p {
+	opacity: 1;
+}
+/**//**//**//**//**//**//**//**/
+
+
+/*iPad*//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
 
 .iPadscreen {
 	height: 207px;
@@ -146,21 +131,6 @@ p {
 	border-color: black;
 	border-radius: 10px 10px 0px 0px;
 }
-
-/*hover effect*//**//**//**//**//**//**//**//**/
-.iPadscreen p {
-	padding-top: 60px;
-	text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.iPadscreen:hover  {
-	background: rgba(0, 0, 0, 0);
-}
-
-.iPad:hover .iPadscreen p{
-	opacity: 1;
-}
-/**//**//**//**//**//**//**//**//**//**//**/
 
 .iPadlogoBar {
 	height: 20px;
@@ -177,6 +147,20 @@ p {
 	margin-left: 74px;
 }
 
+/*hover effect*//**//**//**//**//**/
+.iPadscreen p {
+	padding-top: 60px;
+	text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.iPadscreen:hover  {
+	background: rgba(0, 0, 0, 0);
+}
+
+.iPadscreen:hover p{
+	opacity: 1;
+}
+/**//**//**//**//**//**//**//**/
 
 
 
