@@ -1,0 +1,15 @@
+
+.inventory {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.item {
+	margin: 5px;
+	padding-top: 20px;
+	height: 40px;
+	width: 65px;
+	border-radius: 10%;
+	text-align: center;
+	background: pink;
+}

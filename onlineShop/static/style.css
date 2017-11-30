@@ -1,0 +1,14 @@
+
+.add {
+	margin-top: 50px;
+	text-align: center;
+}
+
+.inventory {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.message {
+	text-align: center;
+}

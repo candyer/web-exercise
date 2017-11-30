@@ -1,3 +1,3 @@
 # web-exercise
 
-learning Javascript by creating small web pages.
+learning Javascript / Flask by creating small web pages.
