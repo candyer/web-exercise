@@ -1,0 +1,33 @@
+<!Doctype html>
+<html>
+	<head>
+		<title>shopping list</title>
+		<link rel='stylesheet' href='static/style.css'>
+	</head>
+
+	<body>
+		<h1>grocery list</h1>
+		<hr>
+		<div class='list'>
+			pringles
+
+		</div>
+		<hr>
+		<form class='add'>
+			<input class='item' type='text' placeholder='add an item to the list'>
+			<select>
+				<option value='food'>food</option>
+				<option value='drink'>drink</option>
+			</select>
+			<input class='new_pic' type="file" name='inputImage'>
+			<input type="submit" value='add' onclick='add_new_item_to_server()'>
+		</form>
+		<hr>
+		<div class='category'>
+			<button class='Food'>Food</button>
+			<button class='Drink'>Drink</button>
+			<button class='Drink'>HouseHold</button>
+
+	<script src='static/main.js'></script>
+	</body>
+</html>
