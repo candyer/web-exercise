@@ -1,0 +1,41 @@
+
+h1 {
+	text-align: center;
+}
+
+.list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;	
+	height: 50vh;
+	overflow: scroll;
+}
+
+.add {
+	text-align: center;
+	height: 30vh;
+}
+
+.showcase {
+	height: 150px;
+	width: 100px;
+	border: 1px solid lightgrey;
+}
+
+.example {
+	height: 150px;
+	width: 100px;
+	margin-left: 40%;
+	border: 1px solid lightgrey;
+}
+
+img {
+	height: 100px;
+	width: 100px;
+}
+
+
+p {
+	text-align: center;
+}
