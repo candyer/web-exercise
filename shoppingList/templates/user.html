@@ -8,26 +8,19 @@
 	<body>
 		<h1>grocery list</h1>
 		<hr>
-		<div class='list'>
-			pringles
-
-		</div>
+		<div class='list'></div>
 		<hr>
 		<form class='add'>
-			<input class='item' type='text' placeholder='add an item to the list'>
-			<select>
-				<option value='food'>food</option>
-				<option value='drink'>drink</option>
-			</select>
-			<input class='new_pic' type="file" name='inputImage'>
-			<input type="submit" value='add' onclick='add_new_item_to_server()'>
+			<input class='item' type='text' placeholder='add new item'  onchange='previewName()' required>
+			<input class='image' type='file' onchange='previewFile()'>
+			<button onclick="add_new_item_to_server()">➕</button>
+			<p></p>
+			<div class='example'>
+				<img class='preview_img' src='' height='200' alt='Image preview...'>
+				<p class='preview_name'> </p>
+			</div>
+			<div class='message'><P>message: </P></div>
 		</form>
-		<hr>
-		<div class='category'>
-			<button class='Food'>Food</button>
-			<button class='Drink'>Drink</button>
-			<button class='Drink'>HouseHold</button>
-
 	<script src='static/main.js'></script>
 	</body>
 </html>
