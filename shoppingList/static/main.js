@@ -1,11 +1,14 @@
 
 let new_item_name;
-let new_item_image;
+let new_item_image = 'https://cdn3.iconfinder.com/data/icons/creative-easter-chicken/512/chicken-3-512.png';
+
+function previewName() {
+	let new_item = document.querySelector('.item');
+	new_item_name = new_item.value.toLowerCase();
+	console.log('new item name->', new_item_name)
+}
 
 function previewFile() {
-	let new_item = document.querySelector('.item');
-	new_item_name = new_item.value;
-	console.log('new item name->', new_item_name)
 	let example = document.querySelector('.example');
 	let preview_img = document.querySelector('.preview_img');
 	let preview_name = document.querySelector('.preview_name');
@@ -25,10 +28,10 @@ function previewFile() {
 	}
 }
 
-
 function add_new_item_to_server(){
 	let message = document.querySelector('.message');
 	message.innerHTML = new_item_name + ' added to list!';
+	console.log(new_item_name, new_item_image);
 	post_new_item(new_item_name, new_item_image);
 }
 
@@ -47,14 +50,14 @@ function post_new_item(new_item, new_image) {
 
 function display_list(items){
 	let list = document.querySelector('.list');
-	items.forEach(item =>{
+	Object.entries(items).forEach(([key, val]) =>{ //convert object to array
 		let showcase = document.createElement('div');
 		showcase.className='showcase';
 		list.appendChild(showcase);
 		let image = document.createElement('img');
-		image.src = item[1];
+		image.src = val;
 		let name = document.createElement('p');
-		name.textContent = item[0];
+		name.textContent = key;
 		showcase.appendChild(image);
 		showcase.appendChild(name);	
 	})
@@ -64,11 +67,10 @@ function get_inventory() {
 	fetch('http://127.0.0.1:5000/list_items', {method: 'get'})
 	.then(response => response.json())
 	.then(e => display_list(e)) // display items
-	.catch(e => console.log("error--->", e));
+	.catch(e => console.log("error----->", e));
 }
 
 // setInterval(get_inventory, 1000);
 get_inventory();
-
 
 
