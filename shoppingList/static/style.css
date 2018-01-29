@@ -12,6 +12,116 @@ h1 {
 	overflow: scroll;
 }
 
+.showcase {
+	display: flex;
+	flex-wrap: wrap;
+	height: 100px;
+	width: 200px;
+	border: 1px solid lightgrey;
+}
+
+.edit {
+	display: none;
+}
+
+.delete {
+	display: none;
+}
+
+.text:hover .edit {
+	display: inline-block;
+}
+
+.text:hover .delete {
+	display: inline-block;
+}
+
+.new_img {
+	height: 100px;
+	width: 89px;
+	border-right: 1px solid lightgrey;
+}
+
+.name {
+	height: 20px;
+	border-bottom: 1px solid lightgrey;
+
+}
+
+p {
+	margin: 3px;
+	text-align: center;
+}
+
+
+.addItem {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+form {
+	padding: 10px;
+}
+
+label {
+	display: inline-block;
+	width: 80px;
+	text-align: right;
+	margin-right: 5px;
+}
+
+.description {
+	border-color: lightgrey;
+}
+
+.message {
+	width: 100px;
+	border: 1px solid lightgrey;
+}
+
+.example {
+	display: flex;
+	flex-direction: row;
+	height: 100px;
+	width: 200px;
+	border: 1px solid lightgrey;
+}
+
+.preview_img {
+	height: 100px;
+	width: 89px;
+	border-right: 1px solid lightgrey;
+}
+
+.text {
+	width: 110px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	overflow: scroll;
+}
+
+.preview_name {
+	height: 20px;
+	width: 110px;
+	margin: 4px;
+}
+
+.preview_des {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 80px;
+	width: 110px;
+	margin: 4px;
+	border-top: 1px solid lightgrey;
+}
+
+img {
+	height: 98px;
+	width: 98px;
+}
+
 .add {
 	text-align: center;
 	height: 30vh;
@@ -39,3 +149,4 @@ img {
 p {
 	text-align: center;
 }
+
