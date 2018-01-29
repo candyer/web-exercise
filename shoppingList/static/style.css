@@ -45,14 +45,12 @@ h1 {
 .name {
 	height: 20px;
 	border-bottom: 1px solid lightgrey;
-
 }
 
 p {
 	margin: 3px;
 	text-align: center;
 }
-
 
 .addItem {
 	display: flex;
@@ -127,26 +125,8 @@ img {
 	height: 30vh;
 }
 
-.showcase {
-	height: 150px;
-	width: 100px;
-	border: 1px solid lightgrey;
-}
-
-.example {
-	height: 150px;
-	width: 100px;
-	margin-left: 40%;
-	border: 1px solid lightgrey;
-}
-
 img {
 	height: 100px;
 	width: 100px;
-}
-
-
-p {
-	text-align: center;
 }
 
