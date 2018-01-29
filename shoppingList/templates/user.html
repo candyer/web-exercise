@@ -9,18 +9,38 @@
 		<h1>grocery list</h1>
 		<hr>
 		<div class='list'></div>
+		
 		<hr>
-		<form class='add'>
-			<input class='item' type='text' placeholder='add new item'  onchange='previewName()' required>
-			<input class='image' type='file' onchange='previewFile()'>
-			<button onclick="add_new_item_to_server()">➕</button>
-			<p></p>
+		<h2>Add an item to the list: </h2>
+		<div class='addItem'>
+
+			<form onsubmit="return false">
+				<label for='item'> Item Name:</label>
+				<input class='item' type='text' placeholder='add name' onchange='previewName()' required>
+				<p></p>
+
+				<label for='description'> Description:</label>
+				<textarea class='description' placeholder='add description' rows='3' cols='40' onchange='previewDes()'></textarea> 
+				<p></p>
+
+				<label for='image'> Image:</label>
+				<input class='image' type='file' onchange='previewFile()'>
+				<p></p>
+
+				<label for='submit'>submit:</label>
+				<button class='submit' onclick="add_new_item_to_server()">➕</button>
+			</form>
+
 			<div class='example'>
-				<img class='preview_img' src='' height='200' alt='Image preview...'>
-				<p class='preview_name'> </p>
+				<img class='preview_img' src='https://royalwise.com/rw/wp-content/uploads/2015/04/Apple_Photos.png' height='98' alt='Image preview...'>
+				<div class='text'>
+					<p class='preview_name'>Item name </p>
+					<p class='preview_des'> Description</p>
+				</div>
 			</div>
-			<div class='message'><P>message: </P></div>
-		</form>
+			<div class='message'> upload status loading... </div>
+		</div>
+		
 	<script src='static/main.js'></script>
 	</body>
 </html>
