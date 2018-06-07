@@ -1,4 +1,4 @@
-from flask import Flask, request, flash, render_template, url_for, redirect
+from flask import Flask, request, flash, render_template, url_for, redirect, g
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
 import sqlite3
 import os
@@ -15,7 +15,7 @@ def home():
 
 
 class RegistrationForm(Form):
-	username = StringField('', [validators.Length(min=4, max=25)], render_kw={"placeholder": "Username"})
+	username = StringField('', [validators.Length(min=3, max=25)], render_kw={"placeholder": "Username"})
 	password = PasswordField('', [
 		validators.DataRequired(),
 		validators.EqualTo('confirm', message='Passwords must match')
@@ -28,8 +28,9 @@ class RegistrationForm(Form):
 @app.route('/register',  methods=['GET', 'POST'])
 def register():
 	form= RegistrationForm(request.form)
+	username = form.username.data.lower()
 	if request.method == 'POST' and form.validate():
-		insert_user(form.username.data, form.password.data)
+		insert_user(username, form.password.data)
 		flash('Thanks for registering')
 		return redirect(url_for('login'))
 	return render_template('register.html', form=form)
@@ -40,9 +41,10 @@ def register():
 def login():
 	error = None
 	if request.method == 'POST':
-		if check_username(request.form['username']) == None:
+		username = request.form['username'].lower()
+		if check_username(username) == None:
 			error = 'Username does not exist, please try again'
-		elif request.form['password'] != check_password(request.form['username']):
+		elif request.form['password'] != check_password(username):
 			error = 'Password does not match, pleae try again'
 		else:
 			return redirect(url_for('home'))
