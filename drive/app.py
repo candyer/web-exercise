@@ -29,10 +29,16 @@ class RegistrationForm(Form):
 def register():
 	form= RegistrationForm(request.form)
 	username = form.username.data.lower()
+
+	if check_username(username):
+		flash('Username exists, please choose another one')
+		return render_template('register.html', form=form)
+		
 	if request.method == 'POST' and form.validate():
 		insert_user(username, form.password.data)
 		flash('Thanks for registering')
 		return redirect(url_for('login'))
+
 	return render_template('register.html', form=form)
 
 
