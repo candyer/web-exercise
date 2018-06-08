@@ -1,14 +1,30 @@
-from flask import Flask, request, flash, render_template, url_for, redirect, g
+from flask import Flask, request, flash, render_template, url_for, redirect, session
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from functools import wraps
 import sqlite3
 import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24) # flash requires this
+app.secret_key = '\xf6\xc8\xfaCw\xcf9O\xc2\xf8s\xeb\xed7J\xd2\x8b\xee\xe4\xc4\xa2$\xf8\x00' # flash requires this
 
+
+
+# login required decorator
+def login_required(f):
+	@wraps(f)
+	def wrap(*args, **kwargs):
+		if 'logged_in' in session:
+			return f(*args, **kwargs)
+		else:
+			flash('Please login')
+			return redirect(url_for('login', next=request.url))
+	return wrap
+	
 
 
 @app.route('/')
+@login_required
 def home():
 	return 'welcome'
 
@@ -26,6 +42,7 @@ class RegistrationForm(Form):
 
 
 @app.route('/register',  methods=['GET', 'POST'])
+@login_required
 def register():
 	form= RegistrationForm(request.form)
 	username = form.username.data.lower()
@@ -33,7 +50,7 @@ def register():
 	if check_username(username):
 		flash('Username exists, please choose another one')
 		return render_template('register.html', form=form)
-		
+
 	if request.method == 'POST' and form.validate():
 		insert_user(username, form.password.data)
 		flash('Thanks for registering')
@@ -53,8 +70,21 @@ def login():
 		elif request.form['password'] != check_password(username):
 			error = 'Password does not match, pleae try again'
 		else:
-			return redirect(url_for('home'))
+			session['logged_in'] = True
+			session['username'] = username
+			flash('You were just logged in!')
+			return redirect(request.args.get('next', ''))
 	return render_template('login.html', error=error)
+
+
+
+@app.route('/logout')
+@login_required
+def logout():
+	session.pop('logged_in', None)
+	session.pop('username', None)
+	flash('You were just logged out!')
+	return redirect(url_for('login'))
 
 
 
@@ -62,6 +92,7 @@ def create_table():
 	conn = sqlite3.connect('drive.db')
 	c = conn.cursor()
 	c.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, password TEXT);')
+	c.execute('CREATE TABLE IF NOT EXISTS files (userid INTEGER, fileid INTEGER PRIMARY KEY, filename TEXT);')
 	conn.commit()
 	c.close()
 	conn.close()
@@ -105,3 +136,7 @@ def check_password(username):
 
 if __name__ == '__main__':
 	app.run(debug=True)
+
+
+
+
