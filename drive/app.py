@@ -6,7 +6,7 @@ import os
 from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
-app.secret_key = '\xf6\xc8\xfaCw\xcf9O\xc2\xf8s\xeb\xed7J\xd2\x8b\xee\xe4\xc4\xa2$\xf8\x00' # flash requires this
+app.secret_key = '\xf6\xc8\xfaCw\xcf9O\xc2\xf8s\xeb\xed7J\xd2\x8b\xee\xe4\xc4\xa2$\xf8\x00' 
 
 
 
@@ -26,7 +26,7 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-	return render_template('home.html', user=session['username'] )
+	return render_template('home.html', filenames=get_filenames(), user=session['username'] )
 
 
 
@@ -91,15 +91,35 @@ def logout():
 
 
 
+@app.route('/upload', methods=['GET', 'POST'])
+@login_required
+def upload():
+	if request.method == 'POST':
+		filename = request.files['file'].filename
+		content = request.files['file'].read()
+		upload_file(filename, content)
+
+	return render_template('upload.html', user=session['username'] )
+
+
+
+@app.route('/files/<filename>', methods=['GET', 'POST'])
+@login_required
+def files(filename):
+	content = get_content(filename)
+	return str(content)
+
+
+
 def create_table():
 	conn = sqlite3.connect('drive.db')
 	c = conn.cursor()
 	c.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, password TEXT);')
-	c.execute('CREATE TABLE IF NOT EXISTS files (userid INTEGER, fileid INTEGER PRIMARY KEY, filename TEXT);')
+	c.execute('CREATE TABLE IF NOT EXISTS files (fileid INTEGER PRIMARY KEY, userid INTEGER, filename TEXT, content BLOB);')
 	conn.commit()
 	c.close()
 	conn.close()
-# create_table()
+# create_table() # only need to call it once
 
 
 
@@ -137,17 +157,40 @@ def check_password(username):
 
 
 
-def upload_file(filename):
+def upload_file(filename, content):
 	conn = sqlite3.connect('drive.db')
 	c = conn.cursor()
 	userid = check_username(session['username'])[0]
-	print '///////////////////////////////////'
-	print filename
-	print '///////////////////////////////////'
-	c.execute('INSERT INTO files (userid, filename) VALUES (?, ?);', (userid, filename))
+	c.execute('INSERT INTO files (userid, filename, content) VALUES (?, ?, ?);', (userid, filename, buffer(content)))
 	conn.commit()
 	c.close()
 	conn.close()
+
+
+
+def get_filenames():
+	conn = sqlite3.connect('drive.db')
+	c = conn.cursor()
+	userid = check_username(session['username'])[0]
+	c.execute("SELECT filename FROM files where userid = ?", (userid,))
+	data = c.fetchall()
+	conn.commit()
+	c.close()
+	conn.close()
+	return [x[0] for x in data]
+
+
+
+def get_content(filename):
+	conn = sqlite3.connect('drive.db')
+	c = conn.cursor()
+	userid = check_username(session['username'])[0]
+	c.execute("SELECT content FROM files where filename = ? and userid = ?", (filename, userid))
+	data = c.fetchone()
+	conn.commit()
+	c.close()
+	conn.close()	
+	return data[0]
 
 
 

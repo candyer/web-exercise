@@ -1,9 +1,13 @@
 
-
-
 <p><h1> welcome to {{ user }}'s drive! </h1></p>
 
 
 
+{% for filename in filenames %}
+<tr>
+	<a href="files/{{ filename }}" download> {{filename}} </a> <br>
+</tr>
+{% endfor %}
 
 
+<p><a href="{{ url_for('upload') }}" > Upload</a> a file</p>
