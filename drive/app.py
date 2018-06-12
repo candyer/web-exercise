@@ -3,7 +3,7 @@ from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from functools import wraps
 import sqlite3
 import os
-from werkzeug.utils import secure_filename
+from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
 app.secret_key = '\xf6\xc8\xfaCw\xcf9O\xc2\xf8s\xeb\xed7J\xd2\x8b\xee\xe4\xc4\xa2$\xf8\x00' # flash requires this
@@ -26,7 +26,7 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-	return 'welcome'
+	return render_template('home.html', user=session['username'] )
 
 
 
@@ -42,7 +42,6 @@ class RegistrationForm(Form):
 
 
 @app.route('/register',  methods=['GET', 'POST'])
-@login_required
 def register():
 	form= RegistrationForm(request.form)
 	username = form.username.data.lower()
@@ -52,7 +51,8 @@ def register():
 		return render_template('register.html', form=form)
 
 	if request.method == 'POST' and form.validate():
-		insert_user(username, form.password.data)
+		pwd = sha256_crypt.encrypt(form.password.data)
+		insert_user(username, pwd)
 		flash('Thanks for registering')
 		return redirect(url_for('login'))
 
@@ -65,9 +65,12 @@ def login():
 	error = None
 	if request.method == 'POST':
 		username = request.form['username'].lower()
+		password = request.form['password']
+
 		if check_username(username) == None:
 			error = 'Username does not exist, please try again'
-		elif request.form['password'] != check_password(username):
+
+		elif not sha256_crypt.verify(password, check_password(username)):
 			error = 'Password does not match, pleae try again'
 		else:
 			session['logged_in'] = True
@@ -113,7 +116,7 @@ def insert_user(username, password):
 def check_username(username):
 	conn = sqlite3.connect('drive.db')
 	c = conn.cursor()
-	c.execute("SELECT name FROM users where name = ?", (username,))
+	c.execute("SELECT id, name FROM users where name = ?", (username,))
 	data = c.fetchone()	
 	conn.commit()
 	c.close()
@@ -131,6 +134,20 @@ def check_password(username):
 	c.close()
 	conn.close()
 	return data[0]
+
+
+
+def upload_file(filename):
+	conn = sqlite3.connect('drive.db')
+	c = conn.cursor()
+	userid = check_username(session['username'])[0]
+	print '///////////////////////////////////'
+	print filename
+	print '///////////////////////////////////'
+	c.execute('INSERT INTO files (userid, filename) VALUES (?, ?);', (userid, filename))
+	conn.commit()
+	c.close()
+	conn.close()
 
 
 

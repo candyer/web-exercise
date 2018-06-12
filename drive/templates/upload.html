@@ -2,9 +2,9 @@
 <html>
 <body>
 
-<h1>Please upload files</h1>
-<form action="" method=post enctype=multipart/form-data>
-	<input type="file" name="file" accept="file_extension" multiple>
+<h1> {{ user }},  Please upload files</h1>
+<form action="{{ url_for('upload')}}" method=POST enctype=multipart/form-data>
+	<input type="file" name="file" accept="file_extension" >
 	<input type="submit" value="Upload">
 </form>
 
