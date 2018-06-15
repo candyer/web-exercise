@@ -10,7 +10,12 @@ def home():
 		task = request.form['task'].strip()
 		if task:
 			insert_task(task)
-	tasks = get_tasks()
+
+	tasks = []
+	for id, task in get_tasks():
+		line = "<p><input type='checkbox' name= %d > %s </p>" % (id, escape_string(task))
+		tasks.append(line)
+	tasks = ''.join(tasks)		
 
 	return ''' 
 
@@ -30,16 +35,7 @@ def home():
 			</body>
 		</html>
 
-	''' % (f(tasks))
-
-
-
-def f(tasks):
-	res = []
-	for id, task in tasks:
-		line = "<p><input type='checkbox' name= %d > %s </p>" % (id, task)
-		res.append(line)
-	return ''.join(res)
+	''' % (tasks)
 
 
 
@@ -61,6 +57,14 @@ def insert_task(task):
 	conn.commit()
 	c.close()
 	conn.close()
+
+
+
+def escape_string(s):
+	'''
+	escape dangerous characters(<, >, ', "), there are more but this is just an example
+	'''
+	return s.replace('<', '&lt;').replace('>', '&gt;').replace("'", '&apos;').replace('"', '&quot;')
 
 
 
