@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<link rel='stylesheet' href='static/style.css'>
+	</head>
+	<body>
+
+	<h1> Please upload Pictures and choose the effect</h1>
+	<form action="" method=POST enctype=multipart/form-data>
+		<input type="file" name="photos" accept="image/*" multiple>
+		<p></p>
+		<select name='feature' class="effect">
+			<option value="filter">filter</option>
+			<option value="collage">collage</option>
+			<option value="movie">movie</option>
+		</select>
+		<p></p>
+		<input type="submit" value="Upload">
+	</form>
+	<p></p>
+	{% for src in srcs %}
+		<img src= 'data:image/png;base64, {{ src }}' >
+	{% endfor %}
+	</body>
+</html>
