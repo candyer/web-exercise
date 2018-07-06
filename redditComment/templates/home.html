@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>comment</title>
+		<link rel='stylesheet' href='static/style.css'>
+	</head>
+
+	<body>
+		<p>How do you think about the world cup? leave a comment</p>
+		<form action="" method=POST>
+			<textarea name='comment'></textarea>
+			<input type='submit' value='submit'>
+		</form>
+
+		<ul>
+			{% for child in tree.children recursive %}
+				<li>
+					<form action='' method=GET >
+						<div class='message'>{{ child.content }}</div>
+						<div>
+							<input type='hidden' name='id' value='{{child.id}}'>
+							<input type='submit' name='action' value='reply'>
+							<input type='submit' name='action' value='upvote'>
+							<input type='submit' name='action' value='downvote'>
+						</div>
+						<div>
+							<textarea name='message'> </textarea>
+							<input type='submit' name='action' value='submit' ></button>
+						</div>
+					</form>
+				</li>
+				{% if child.children %}
+					<ul>
+						{{ loop(child.children) }}
+					</ul>
+				{% endif %}
+			{% endfor %}
+		</ul>
+
+	</body>
+
+</html>
+
+
+
+

@@ -1,0 +1,18 @@
+
+
+ul {
+	list-style: none;
+}
+
+.message {
+	color: blue;
+	padding-top: 10px;
+	font-weight: bold;
+}
+
+textarea {
+	border-radius: 5px;
+}
+
+
+
