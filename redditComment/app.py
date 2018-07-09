@@ -6,13 +6,16 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+	parent_id = None
+	already_open = request.args.get('already_open', 'False') == 'True'
+
 	if request.method == 'POST':
 		content = request.form['comment'].strip()
 		if content:
 			insert_entry(0, content)
 	else:
 		action = request.args.get('action', '')
-		parent_id = request.args.get('id', '')
+		parent_id = request.args.get('id', '0')
 		value = request.args.get('message', '')
 		if action == 'upvote':
 			update_score(1, parent_id)
@@ -23,7 +26,7 @@ def home():
 
 	tree = make_tree(query_entry())
 
-	return render_template('home.html', tree=tree)
+	return render_template('home.html', tree=tree, selected_id=int(parent_id), already_open=already_open)
 
 
 

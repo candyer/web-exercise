@@ -23,10 +23,13 @@
 							<input type='submit' name='action' value='upvote'>
 							<input type='submit' name='action' value='downvote'>
 						</div>
-						<div>
-							<textarea name='message'> </textarea>
-							<input type='submit' name='action' value='submit' ></button>
-						</div>
+						<input type="hidden" name='already_open' value='{{ child.id == selected_id and not already_open}}'>
+						{% if child.id == selected_id and not already_open %}						
+							<div>
+								<textarea name='message'> </textarea>
+								<input type='submit' name='action' value='submit' ></button>
+							</div>
+						{% endif %}
 					</form>
 				</li>
 				{% if child.children %}
