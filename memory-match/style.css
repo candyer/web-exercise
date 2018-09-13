@@ -1,0 +1,12 @@
+.board {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.card {
+	flex: 1 0 22%; /*grow, shrink, basis*/
+	/*background: lightgrey;*/
+	text-align: center;
+	margin: 5px;
+	font-size: 150px;
+}
