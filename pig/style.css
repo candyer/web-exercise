@@ -1,0 +1,95 @@
+
+html {
+	height: 50vh;
+	width: 100vw;
+}
+
+.pig {
+	position: absolute;
+	height: 230px;
+	width: 320px;
+	transform: rotate(10deg);
+	background: pink;
+	border-radius: 60% 40% 40% 60% / 50% 50% 50% 50%;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.mouth {
+	position: absolute;
+	height: 80px;
+	width: 100px;
+	background: pink;
+	top: 90px;
+	left: -20px;
+	border-radius: 10px 10px 10px 25px;
+}
+
+.eye {
+	position: absolute;
+	height: 20px;
+	width: 20px;
+	left: 60px;
+	top: 60px;
+	border-radius: 50%;
+	background: black;
+}
+
+.ear {
+	position: absolute;
+	height: 50px;
+	width: 30px;
+	border-top-left-radius: 20%;
+	border-top-right-radius: 100%;
+	background: pink;
+	left: 60px;
+	top: -15px;
+	transform: rotate(-35deg);
+}
+
+.tail {
+	position: absolute;
+	height: 50px;
+	width: 20px;
+	border-bottom-left-radius: 20%;
+	border-bottom-right-radius: 100%;
+	left: 320px;
+	top: 100px;
+	background: pink;
+	transform: rotate(-55deg);
+}
+
+.legleft {
+	position: absolute;
+	height: 60px;
+	width: 45px;
+	border-bottom-left-radius: 10%;
+	border-bottom-right-radius: 100%;
+	background: pink;
+	left: 110px;
+	top: 205px;
+	transform: rotate(20deg);
+}
+
+.legright {
+	position: absolute;
+	height: 60px;
+	width: 45px;
+	border-bottom-left-radius: 10%;
+	border-bottom-right-radius: 100%;
+	background: pink;
+	left: 200px;
+	top: 205px;
+	transform: rotate(20deg);
+}
+
+
+p {
+	text-align: center;
+	font-size: 40px;
+}
+
+
