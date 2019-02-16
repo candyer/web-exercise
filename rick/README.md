@@ -1,1 +1,1 @@
-<img src='rick.png'>
+<img src='rick.png' width='300'>
