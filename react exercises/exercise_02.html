@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello, input</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+	<script src='https://unpkg.com/babel-standalone@6/babel.min.js'></script>
+</head>
+<body>
+	<div class='app'></div>
+	<script type='text/babel'>
+
+		function NameOrPlaceholder(props){
+			if (typeof props.name === 'string' && props.name.length > 0) {
+				return (
+					<h2>Hello {props.name} !</h2>
+				)               
+			}
+			return (
+				<h2> What's your name ? </h2>
+			)
+		}
+
+		class App extends React.Component {
+			constructor() {
+				super()
+				this.state = {name: ''};
+			
+			}
+			updateInputValue(e){
+				this.setState({
+					name: e.target.value
+				});
+			}
+
+			render(){
+				return (
+					<div>
+						<NameOrPlaceholder name={this.state.name} />
+						<input 
+							type="text" 
+							placeholder="name" 
+							value={this.state.name} 
+							onChange={e => this.updateInputValue(e)}
+						/>
+					</div>
+				)
+			}
+		}
+
+		ReactDOM.render(
+			<App />,
+			document.querySelector('.app')
+		)
+	</script>
+
+</body>
+</html>
