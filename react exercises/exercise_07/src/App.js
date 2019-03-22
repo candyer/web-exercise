@@ -18,7 +18,11 @@ class App extends React.Component {
 				/>
 				<button onClick={this.props.onSaveClick}>Save</button>
 
-				<PreviousNamesTable onNameClick={this.props.onNameClick} preNames={this.props.preNames} />
+				<PreviousNamesTable 
+					onNameClick={this.props.onNameClick} 
+					onNameDelete={this.props.onNameDelete} 
+					preNames={this.props.preNames} 
+				/>
 			</div>
 		)
 
@@ -43,7 +47,11 @@ const enhance = compose(
 				setPreNames(preNames);
 			}
 		},
-		onNameClick: ({setName}) => (e) => setName(e.target.name)
+		onNameClick: ({setName}) => (e) => setName(e.target.name),
+		onNameDelete: ({setPreNames, preNames}) => (e) => {
+			preNames.splice(e.target.value, 1)
+			setPreNames(preNames);
+		}
 	}))
 
 export default enhance(App);

@@ -3,14 +3,14 @@ import requests
 import sqlite3
 
 def create_table():
-	conn = sqlite3.connect('data.db')
+	conn = sqlite3.connect('zz.db')
 	c = conn.cursor()
 	c.execute('CREATE TABLE IF NOT EXISTS items (id INTEGER, name TEXT, price INTEGER, image BLOB);')
 create_table()
 
 
 def insert_entry(id, name, price, image):
-	conn = sqlite3.connect('data.db')
+	conn = sqlite3.connect('zz.db')
 	c = conn.cursor()
 	c.execute('INSERT INTO items (id, name, price, image) VALUES (?, ?, ?, ?);', (id, name, price, image))
 	conn.commit()
@@ -61,7 +61,7 @@ def get_page(url):
 
 
 def crawl_datas():
-	r = requests.get('https://www.coopathome.ch/supermarket/c/supermarket/results?page=1')
+	r = requests.get('https://www.coopathome.ch/supermarket/c/supermarket/results?page=0')
 	pages = r.json()['pagination']['numberOfPages'] #this tells how many pages in total
 	for i in range(pages):
 		print 'page: {}'.format(i)
@@ -69,6 +69,11 @@ def crawl_datas():
 		get_page(url)
 
 crawl_datas()
+
+# real	10m7.592s
+# user	0m21.193s
+# sys	0m18.738s
+
 
 
 

@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, Response
 from PIL import Image 
 import StringIO
-
+import imageio
 
 app = Flask(__name__)
 
@@ -18,8 +18,16 @@ def home():
 	elif feature == 'collage':
 		contents.append(collage(pictures))
 
+	# else:
+	# 	return movie(pictures)
+
 	return render_template('pic.html', srcs=contents)
 
+
+@app.route('/a.gif')
+def f():
+	gif = open('movie.gif','r')
+	return Response(gif.read(), mimetype='image/gif')
 
 
 def filter(picture):
@@ -65,6 +73,19 @@ def collage(pictures):
 	contents = output.getvalue().encode("base64")
 	output.close()
 	return contents
+
+
+def movie(pictures):
+	'''
+	Given several images, possibly different sizes, return one gif 
+	'''
+	with imageio.get_writer('movie.gif', mode='I', duration=0.3, loop=2) as writer:
+		for picture in pictures:
+			image = imageio.imread(picture)
+			writer.append_data(image)
+
+	gif = open('movie.gif','r')
+	return gif.read()
 
 
 if __name__ == '__main__':
