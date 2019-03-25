@@ -9,10 +9,10 @@ function PreviousNameRowReadOnly(props){
 			<a href="javascript:;" onClick={onNameClick}>{name}</a>
 		</td>
 		<td>
-			<button onClick={onEditClick}> Edit </button>
+			<button className='hovershow' onClick={onEditClick}> Edit </button>
 		</td>
 		<td>
-			<button onClick={onDeleteClick}> Delete </button>
+			<button className='hovershow' onClick={onDeleteClick}> Delete </button>
 		</td>
 	</tr>;
 }
