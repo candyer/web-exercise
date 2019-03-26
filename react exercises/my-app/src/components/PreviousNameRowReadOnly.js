@@ -2,11 +2,14 @@ import React from 'react';
 import { compose, withHandlers } from 'recompose';
 
 function PreviousNameRowReadOnly(props){
-	const { name, onNameClick, onEditClick, onDeleteClick } = props;
+	const { name, date, onNameClick, onEditClick, onDeleteClick } = props;
 
 	return <tr>
 		<td>
 			<a href="javascript:;" onClick={onNameClick}>{name}</a>
+		</td>
+		<td>
+			<div >{date}</div>
 		</td>
 		<td>
 			<button className='hovershow' onClick={onEditClick}> Edit </button>

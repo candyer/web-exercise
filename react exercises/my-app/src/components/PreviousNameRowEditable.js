@@ -2,11 +2,14 @@ import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 
 function PreviousNameRowEditable(props){
-	const { editName, onCancelClick, onConfirmClick, onInputChange } = props;
+	const { editName, date, onCancelClick, onConfirmClick, onInputChange } = props;
 
 	return <tr>
 		<td>
 			<input type='text' value={editName} onChange={onInputChange} />
+		</td>
+		<td>
+			<div>{date}</div>
 		</td>
 		<td>
 			<button onClick={onCancelClick}> Cancel </button>

@@ -9,8 +9,10 @@ class App extends React.Component {
 	render() {
 		const props = this.props;
 		const {
-			editingIndex,
 			name,
+			date,
+			preNames,
+			editingIndex,
 			onInputChange,
 			onNameClick,
 			onNameChange,
@@ -18,7 +20,7 @@ class App extends React.Component {
 			onNameEditCancel,
 			onNameEditClick,
 			onSaveClick,
-			preNames,
+			
 		} = props;
 
 		return (
@@ -34,6 +36,7 @@ class App extends React.Component {
 
 				<PreviousNamesTable
 					editingIndex={editingIndex}
+					date={date}
 					onNameClick={onNameClick}
 					onNameChange={onNameChange}
 					onDeleteClick={onNameDeleteClick}
@@ -48,27 +51,54 @@ class App extends React.Component {
 }
 
 const withName = withState('name', 'setName', '');
-const withPreNames = withState('preNames', 'setPreNames', ['Alice', 'Dave', 'Elsa']);
+const withDate = withState('date', 'setDate', '');
+const withPreNames = withState('preNames', 'setPreNames', [
+	{
+		'name': 'Dave', 
+		'date': '20/01/2014, 12:18:07'
+	},	
+	{
+		'name': 'Alice', 
+		'date': '04/01/2013, 23:18:07'
+	},
+	{
+		'name': 'Elsa', 
+		'date': '25/03/2019, 12:18:07'
+	},]);
 const withEditingIndex = withState('editingIndex', 'setEditingIndex', -1);
 
 const enhance = compose(
 	withName,
+	withDate,
 	withPreNames,
 	withEditingIndex,
 	withHandlers({
 		onInputChange: ({setName}) => (e) => setName(e.target.value),
-		onSaveClick: ({setPreNames, preNames, name}) => () => {
+		onSaveClick: ({setPreNames, preNames, name, date, setDate}) => () => {
+			date = new Date().toLocaleString()
+			setDate(date)
 			if (preNames.length < 10){
-				preNames.unshift(name)
+				preNames.unshift(
+					{
+						'name': name, 
+						'date': date
+					}
+				)
 				setPreNames(preNames);
 			} else {
-				preNames.unshift(name)
+				preNames.unshift(
+					{
+						'name': name, 
+						'date': date
+					}
+				)
 				preNames.pop()
 				setPreNames(preNames);
 			}
+			
 		},
 		onNameClick: ({setName, preNames}) => ({ index }) => {
-			setName(preNames[index]);
+			setName(preNames[index].name);
 		},
 		onNameChange: (props) => (newName, { index }) => {
 			const {setPreNames, preNames, setEditingIndex} = props;
@@ -90,4 +120,3 @@ const enhance = compose(
 	}))
 
 export default enhance(App);
-

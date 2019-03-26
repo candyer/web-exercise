@@ -28,3 +28,7 @@ tr:hover .hovershow {
   opacity: 1.0;
   color: red;
 }
+
+a {
+  text-decoration: none;
+}

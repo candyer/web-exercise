@@ -15,19 +15,31 @@ function PreviousNamesTable(props){
 	return (
 		<table>
 			<tbody>
-				{props.preNames.map((name, index) => {
+				<tr>
+					<th>
+						Name
+						<a href="javascript:;">❖</a>
+					</th>
+					<th>
+						Date
+						<a href="javascript:;">❖</a>
+					</th>
+				</tr>
+				{props.preNames.map((row, index) => {
 					if (editingIndex === index) {
 						return <PreviousNameRowEditable
-							key={`${index}-${name}`}
+							key={`${index}-${row.name}`}
 							index={index}
-							name={name}
+							name={row.name}
+							date={row.date}
 							onChange={onNameChange}
 							onCancel={onEditCancel} />;
 					}
 					return <PreviousNameRowReadOnly
-						key={`${index}-${name}`}
+						key={`${index}-${row.name}`}
 						index={index}
-						name={name}
+						name={row.name}
+						date={row.date}
 						onEditClick={onEditClick}
 						onDeleteClick={onDeleteClick}
 						onNameClick={onNameClick} />;
