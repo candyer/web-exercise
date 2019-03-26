@@ -1,6 +1,7 @@
 import React from 'react';
 import PreviousNameRowEditable from './PreviousNameRowEditable';
 import PreviousNameRowReadOnly from './PreviousNameRowReadOnly';
+import formatDate from '../helpers/formatDate';
 
 function PreviousNamesTable(props){
 	const {
@@ -31,7 +32,7 @@ function PreviousNamesTable(props){
 							key={`${index}-${row.name}`}
 							index={index}
 							name={row.name}
-							date={row.date}
+							date={formatDate(row.date)}
 							onChange={onNameChange}
 							onCancel={onEditCancel} />;
 					}
@@ -39,7 +40,7 @@ function PreviousNamesTable(props){
 						key={`${index}-${row.name}`}
 						index={index}
 						name={row.name}
-						date={row.date}
+						date={formatDate(row.date)}
 						onEditClick={onEditClick}
 						onDeleteClick={onDeleteClick}
 						onNameClick={onNameClick} />;

@@ -13,6 +13,7 @@ class App extends React.Component {
 			date,
 			preNames,
 			editingIndex,
+			dateTimeDisplay,
 			onInputChange,
 			onNameClick,
 			onNameChange,
@@ -36,7 +37,7 @@ class App extends React.Component {
 
 				<PreviousNamesTable
 					editingIndex={editingIndex}
-					date={date}
+					dateTimeDisplay={dateTimeDisplay}
 					onNameClick={onNameClick}
 					onNameChange={onNameChange}
 					onDeleteClick={onNameDeleteClick}
@@ -55,16 +56,17 @@ const withDate = withState('date', 'setDate', '');
 const withPreNames = withState('preNames', 'setPreNames', [
 	{
 		'name': 'Dave', 
-		'date': '20/01/2014, 12:18:07'
+		'date': 1523591603308,
 	},	
 	{
 		'name': 'Alice', 
-		'date': '04/01/2013, 23:18:07'
+		'date': 591603308,
 	},
 	{
 		'name': 'Elsa', 
-		'date': '25/03/2019, 12:18:07'
+		'date': 345678987654,
 	},]);
+
 const withEditingIndex = withState('editingIndex', 'setEditingIndex', -1);
 
 const enhance = compose(
@@ -74,13 +76,15 @@ const enhance = compose(
 	withEditingIndex,
 	withHandlers({
 		onInputChange: ({setName}) => (e) => setName(e.target.value),
+
 		onSaveClick: ({setPreNames, preNames, name, date, setDate}) => () => {
-			date = new Date().toLocaleString()
+			date = Date.now()
 			setDate(date)
+			
 			if (preNames.length < 10){
 				preNames.unshift(
 					{
-						'name': name, 
+						'name': name,
 						'date': date
 					}
 				)
@@ -88,7 +92,7 @@ const enhance = compose(
 			} else {
 				preNames.unshift(
 					{
-						'name': name, 
+						'name': name,
 						'date': date
 					}
 				)
@@ -120,3 +124,12 @@ const enhance = compose(
 	}))
 
 export default enhance(App);
+
+
+
+
+
+
+
+
+

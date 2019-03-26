@@ -22,6 +22,7 @@ function PreviousNameRowEditable(props){
 
 const withEditName = withState('editName', 'setEditName', (props) => props.name);
 
+
 export default compose(
 	withEditName,
 	withHandlers({
@@ -36,3 +37,9 @@ export default compose(
 		},
 	}),
 )(PreviousNameRowEditable);
+
+
+
+
+
+
