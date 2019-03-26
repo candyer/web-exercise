@@ -3,6 +3,7 @@ import PreviousNameRowEditable from './PreviousNameRowEditable';
 import PreviousNameRowReadOnly from './PreviousNameRowReadOnly';
 import formatDate from '../helpers/formatDate';
 
+
 function PreviousNamesTable(props){
 	const {
 		editingIndex,
@@ -12,7 +13,6 @@ function PreviousNamesTable(props){
 		onNameChange,
 		onNameClick,
 	} = props;
-
 	return (
 		<table>
 			<tbody>
@@ -32,6 +32,7 @@ function PreviousNamesTable(props){
 							key={`${index}-${row.name}`}
 							index={index}
 							name={row.name}
+							timeStamp={row.date}
 							date={formatDate(row.date)}
 							onChange={onNameChange}
 							onCancel={onEditCancel} />;

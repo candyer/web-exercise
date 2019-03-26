@@ -2,8 +2,7 @@ import React from 'react';
 import { compose, withHandlers } from 'recompose';
 
 function PreviousNameRowReadOnly(props){
-	const { name, date, onNameClick, onEditClick, onDeleteClick } = props;
-
+	const { name, date, onEditClick, onDeleteClick, onNameClick } = props;
 	return <tr>
 		<td>
 			<a href="javascript:;" onClick={onNameClick}>{name}</a>

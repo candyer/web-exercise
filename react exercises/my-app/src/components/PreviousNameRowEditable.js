@@ -30,7 +30,7 @@ export default compose(
 			props.onCancel({ index: props.index });
 		},
 		onConfirmClick: (props) => () => {
-			props.onChange(props.editName, { index: props.index });
+			props.onChange({'name':props.editName, 'date': props.timeStamp}, { index: props.index });
 		},
 		onInputChange: (props) => (event) => {
 			props.setEditName(event.currentTarget.value);

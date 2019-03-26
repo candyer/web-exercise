@@ -4,13 +4,11 @@ import NameOrPlaceholder from './components/NameOrPlaceholder';
 import PreviousNamesTable from './components/PreviousNamesTable';
 import { withState, compose, withHandlers } from 'recompose';
 
-
 class App extends React.Component {
 	render() {
 		const props = this.props;
 		const {
 			name,
-			date,
 			preNames,
 			editingIndex,
 			dateTimeDisplay,
@@ -59,8 +57,12 @@ const withPreNames = withState('preNames', 'setPreNames', [
 		'date': 1523591603308,
 	},	
 	{
+		'name': 'adam', 
+		'date': 9916033081,
+	},
+	{
 		'name': 'Alice', 
-		'date': 591603308,
+		'date': 89160330821,
 	},
 	{
 		'name': 'Elsa', 
@@ -76,7 +78,6 @@ const enhance = compose(
 	withEditingIndex,
 	withHandlers({
 		onInputChange: ({setName}) => (e) => setName(e.target.value),
-
 		onSaveClick: ({setPreNames, preNames, name, date, setDate}) => () => {
 			date = Date.now()
 			setDate(date)
