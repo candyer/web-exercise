@@ -1,0 +1,33 @@
+.sortable-column {
+    cursor: pointer;
+}
+
+.sortable-column:hover {
+    text-decoration: underline;
+}
+
+.sortable-column > .sort-icon:before {
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 10px;
+    content: ' ';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 5px 8px 5px;
+    border-color: transparent transparent #000000 transparent;
+    font-size: 14px;
+    opacity: 0;
+    transition: 0.5s all;
+    transform: rotate(0deg);
+}
+
+.sortable-column > .sort-icon.asc:before {
+    opacity: 0.8;
+    transform: rotate(0deg);
+}
+
+.sortable-column > .sort-icon.desc:before {
+    opacity: 0.8;
+    transform: rotate(180deg);
+}
