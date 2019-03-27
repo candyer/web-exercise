@@ -4,7 +4,6 @@ import PreviousNameRowReadOnly from './PreviousNameRowReadOnly';
 import formatDate from '../helpers/formatDate';
 import { compose, withState, withHandlers } from 'recompose';
 
-
 function PreviousNamesTable(props){
 	const {
 		editingIndex,
@@ -18,6 +17,7 @@ function PreviousNamesTable(props){
 		onSortNameClick,
 		onSortDateClick,
 	} = props;
+	
 	return (
 		<table>
 			<tbody>
@@ -62,20 +62,49 @@ export default compose(
 	withSortNameDirection,
 	withSortDateDirection,
 	withHandlers({
-		onSortNameClick: ({ sortNameDirection, setSortNameDirection}) => () => {
+		onSortNameClick: ({preNames, setPreNames, sortNameDirection, setSortNameDirection}) => () => {
 			if (sortNameDirection === 'NONE') {
+				function compare(a, b){
+					if (a.name > b.name) return 1;
+					if (b.name > a.name) return -1;
+					return 0;
+				}
+				preNames.sort(compare)
+				sortNameDirection = 'ASC'
 				setSortNameDirection('ASC')
+				
 			} else if (sortNameDirection === 'ASC') {
-				setSortNameDirection('DESC')
+				function compare(a, b){
+					if (a.name > b.name) return -1;
+					if (b.name > a.name) return 1;
+					return 0;
+				}	
+				preNames.sort(compare)
+				sortNameDirection = 'DESC'
+				setSortNameDirection('DESC')		
 			} else {
 				setSortNameDirection('STOP')
 			}
 		},
 
-		onSortDateClick: ({ sortDateDirection, setSortDateDirection}) => () => {
+		onSortDateClick: ({ preNames, sortDateDirection, setSortDateDirection}) => () => {
 			if (sortDateDirection === 'NONE') {
+				function compare(a, b){
+					if (a.date > b.date) return 1;
+					if (b.date > a.date) return -1;
+					return 0;
+				}
+				preNames.sort(compare)
+				sortDateDirection = 'ASC'
 				setSortDateDirection('ASC')
 			} else if (sortDateDirection === 'ASC') {
+				function compare(a, b){
+					if (a.date > b.date) return -1;
+					if (b.date > a.date) return 1;
+					return 0;
+				}	
+				preNames.sort(compare)
+				sortDateDirection = 'DESC'
 				setSortDateDirection('DESC')
 			} else {
 				setSortDateDirection('STOP')
@@ -83,9 +112,6 @@ export default compose(
 		},
 	}),
 )(PreviousNamesTable);
-
-
-
 
 
 

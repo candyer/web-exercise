@@ -19,7 +19,6 @@ class App extends React.Component {
 			onNameEditCancel,
 			onNameEditClick,
 			onSaveClick,
-			
 		} = props;
 
 		return (
@@ -63,6 +62,9 @@ const withPreNames = withState('preNames', 'setPreNames', [
 	{
 		'name': 'Alice', 
 		'date': 89160330821,
+	},
+	{	'name': 'Zoe', 
+		'date': 278987654,
 	},
 	{
 		'name': 'Elsa', 
