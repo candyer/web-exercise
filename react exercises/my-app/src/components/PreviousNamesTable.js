@@ -2,6 +2,7 @@ import React from 'react';
 import PreviousNameRowEditable from './PreviousNameRowEditable';
 import PreviousNameRowReadOnly from './PreviousNameRowReadOnly';
 import formatDate from '../helpers/formatDate';
+import { compose, withState, withHandlers } from 'recompose';
 
 
 function PreviousNamesTable(props){
@@ -12,6 +13,10 @@ function PreviousNamesTable(props){
 		onEditClick,
 		onNameChange,
 		onNameClick,
+		sortNameDirection,
+		sortDateDirection,
+		onSortNameClick,
+		onSortDateClick,
 	} = props;
 	return (
 		<table>
@@ -19,11 +24,11 @@ function PreviousNamesTable(props){
 				<tr>
 					<th>
 						Name
-						<a href="javascript:;">❖</a>
+						<a className={`sort${sortNameDirection}`} href="javascript:;" onClick={onSortNameClick}></a>
 					</th>
 					<th>
 						Date
-						<a href="javascript:;">❖</a>
+						<a className={`sort${sortDateDirection}`} href="javascript:;" onClick={onSortDateClick}></a>
 					</th>
 				</tr>
 				{props.preNames.map((row, index) => {
@@ -50,5 +55,38 @@ function PreviousNamesTable(props){
 		</table>
 	)}
 
+const withSortNameDirection = withState('sortNameDirection', 'setSortNameDirection', 'NONE');
+const withSortDateDirection = withState('sortDateDirection', 'setSortDateDirection', 'NONE');
 
-export default PreviousNamesTable;
+export default compose(
+	withSortNameDirection,
+	withSortDateDirection,
+	withHandlers({
+		onSortNameClick: ({ sortNameDirection, setSortNameDirection}) => () => {
+			if (sortNameDirection === 'NONE') {
+				setSortNameDirection('ASC')
+			} else if (sortNameDirection === 'ASC') {
+				setSortNameDirection('DESC')
+			} else {
+				setSortNameDirection('STOP')
+			}
+		},
+
+		onSortDateClick: ({ sortDateDirection, setSortDateDirection}) => () => {
+			if (sortDateDirection === 'NONE') {
+				setSortDateDirection('ASC')
+			} else if (sortDateDirection === 'ASC') {
+				setSortDateDirection('DESC')
+			} else {
+				setSortDateDirection('STOP')
+			}
+		},
+	}),
+)(PreviousNamesTable);
+
+
+
+
+
+
+

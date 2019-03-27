@@ -18,11 +18,15 @@ button {
 	outline: none;
 }
 
+table {
+  min-width: 80%;
+  text-align: center;
+}
+
 .hovershow {
   opacity: 0.0;
   transition: all 500ms ease-in-out;
 }
-
 
 tr:hover .hovershow {
   opacity: 1.0;
@@ -32,3 +36,19 @@ tr:hover .hovershow {
 a {
   text-decoration: none;
 }
+
+.sortNONE:before {
+  margin-left: 10px;
+  content: '❖';
+}
+
+.sortASC:before {
+  margin-left: 10px;
+  content: '▲';
+}
+
+.sortDESC:before {
+  margin-left: 10px;
+  content: '▼';
+}
+
