@@ -51,6 +51,10 @@ class App extends React.Component {
 				/>
 
 				<PreviousNamesTable
+					totalItemsCount={totalItemsCount}
+					itemsPerPage={itemsPerPage}
+					currPage={currPage}
+									
 					editingIndex={editingIndex}
 					onDeleteClick={onNameDeleteClick}
 					onEditCancel={onNameEditCancel}
@@ -123,13 +127,12 @@ const enhance = compose(
 		onPageChange: ({currPage, setCurPage}) => (e) => {
 			currPage = e.currentTarget.innerHTML
 			setCurPage(currPage)
-			// console.log('currPage: ', typeof currPage, currPage)
 		},
 		onInputChange: ({setName}) => (e) => setName(e.target.value),
 		onSaveClick: ({setPreNames, preNames, name, sort}) => () => {
 			const sortBy = sort.name === 'name' ? sortByName : sortByDate;
 
-			if (preNames.length < 10){
+			if (preNames.length < 150){
 				preNames.unshift(
 					{
 						'name': name,

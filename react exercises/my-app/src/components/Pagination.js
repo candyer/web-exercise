@@ -25,7 +25,8 @@ function renderPages(props){
 				key={`${pageNumber}`}
 				pageNumber={pageNumber}
 				currPage={currPage}
-				onPageChange={onPageChange}/>
+				onPageChange={onPageChange}
+				/>
 	})
 }
 export default Pagination

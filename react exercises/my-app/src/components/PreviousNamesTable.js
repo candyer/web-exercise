@@ -5,6 +5,7 @@ import formatDate from '../helpers/formatDate';
 import SortableColumn from './SortableColumn';
 import { compose, withState, withHandlers } from 'recompose';
 
+
 function PreviousNamesTable(props){
 	return (
 		<table>
@@ -31,6 +32,7 @@ function renderSortableColumn(props, name, label, defaultDirection) {
 	</SortableColumn>;
 }
 
+
 function renderItems(props) {
 	const {
 		editingIndex,
@@ -39,9 +41,15 @@ function renderItems(props) {
 		onEditClick,
 		onNameChange,
 		onNameClick,
+		totalItemsCount,
+		itemsPerPage,
+		currPage,
 	} = props;
 
-	return props.preNames.map((row, index) => {
+	let start = (currPage - 1) * itemsPerPage
+	let end = Math.min(currPage * itemsPerPage, totalItemsCount)
+
+	return props.preNames.slice(start, end).map((row, index) => {
 		if (editingIndex === index) {
 			return <PreviousNameRowEditable
 				key={`${index}-${row.name}`}

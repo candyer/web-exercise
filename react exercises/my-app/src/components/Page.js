@@ -4,7 +4,7 @@ function Page(props){
 	const { pageNumber, currPage, onPageChange} = props;
 	if (pageNumber + 1 == currPage) {
 		return( 
-			<li className='currpage'>
+			<li className='active'>
 				<a href="javascript:;" onClick={onPageChange}>
 					{`${props.pageNumber + 1}`}
 				</a>

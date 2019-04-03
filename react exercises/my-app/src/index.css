@@ -48,7 +48,7 @@ li {
   margin: 10px;
 }
 
-.currpage {
+.active {
   font-weight: bold;
   color: salmon;
 }
