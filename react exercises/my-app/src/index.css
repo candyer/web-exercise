@@ -35,20 +35,20 @@ tr:hover .hovershow {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
-.sortNONE:before {
-  margin-left: 10px;
-  content: '❖';
+ul{
+  list-style-type: none;
+  display: flex;
+  direction: row;
 }
 
-.sortASC:before {
-  margin-left: 10px;
-  content: '▲';
+li {
+  margin: 10px;
 }
 
-.sortDESC:before {
-  margin-left: 10px;
-  content: '▼';
+.currpage {
+  font-weight: bold;
+  color: salmon;
 }
-

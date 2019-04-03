@@ -1,7 +1,9 @@
 import React from 'react';
 import NameOrPlaceholder from './components/NameOrPlaceholder';
-// import PreviousNameOrEmpty from './components/PreviousNameOrEmpty';
 import PreviousNamesTable from './components/PreviousNamesTable';
+import Pagination from './components/Pagination';
+import sortByName from './helpers/sortByName';
+import sortByDate from './helpers/sortByDate';
 import { withState, compose, withHandlers } from 'recompose';
 
 class App extends React.Component {
@@ -11,15 +13,23 @@ class App extends React.Component {
 			name,
 			preNames,
 			editingIndex,
-			dateTimeDisplay,
 			onInputChange,
 			onNameClick,
 			onNameChange,
 			onNameDeleteClick,
 			onNameEditCancel,
 			onNameEditClick,
+			onPreNamesSortChange,
 			onSaveClick,
+			sort,
+			onPageChange,
+			currPage
 		} = props;
+
+		const totalItemsCount = preNames.length;
+		const itemsPerPage = 3;
+		const totalPages = Math.ceil(preNames.length/itemsPerPage);
+		const pageNeighbours = 1;
 
 		return (
 			<div>
@@ -31,15 +41,24 @@ class App extends React.Component {
 					onChange={onInputChange}
 				/>
 				<button onClick={onSaveClick}>Save</button>
+				<Pagination 
+					totalItemsCount={totalItemsCount}
+					itemsPerPage={itemsPerPage}
+					totalPages={totalPages}
+					currPage={currPage}
+					pageNeighbours={pageNeighbours}
+					onPageChange={onPageChange}
+				/>
 
 				<PreviousNamesTable
 					editingIndex={editingIndex}
-					dateTimeDisplay={dateTimeDisplay}
-					onNameClick={onNameClick}
-					onNameChange={onNameChange}
 					onDeleteClick={onNameDeleteClick}
-					onEditClick={onNameEditClick}
 					onEditCancel={onNameEditCancel}
+					onEditClick={onNameEditClick}
+					onNameChange={onNameChange}
+					onNameClick={onNameClick}
+					sort={sort}
+					onSortChange={onPreNamesSortChange}
 					preNames={preNames}
 				/>
 			</div>
@@ -47,71 +66,96 @@ class App extends React.Component {
 
 	}
 }
-
+const withCurrPage = withState('currPage', 'setCurPage', '1')
 const withName = withState('name', 'setName', '');
-const withDate = withState('date', 'setDate', '');
 const withPreNames = withState('preNames', 'setPreNames', [
 	{
-		'name': 'Dave', 
+		'name': 'Dave',
 		'date': 1523591603308,
-	},	
+	},
 	{
-		'name': 'adam', 
+		'name': 'adam',
 		'date': 9916033081,
 	},
 	{
-		'name': 'Alice', 
+		'name': 'Alice',
 		'date': 89160330821,
 	},
-	{	'name': 'Zoe', 
+	{	'name': 'Zoe',
 		'date': 278987654,
 	},
+	{	'name': 'Aria',
+		'date': 133278987654,
+	},
+	{	'name': 'Jon snow',
+		'date': 733278987654,
+	},
+	{	'name': 'Jamie',
+		'date': 3456,
+	},
+	{	'name': 'sam',
+		'date': 5765438765432,
+	},
+	{	'name': 'Jim',
+		'date': 765438765432,
+	},
+	{	'name': 'Pam',
+		'date': 87654387654,
+	},
 	{
-		'name': 'Elsa', 
+		'name': 'Elsa',
 		'date': 345678987654,
 	},]);
 
 const withEditingIndex = withState('editingIndex', 'setEditingIndex', -1);
+const withSort = withState('sort', 'setSort', () => ({
+	name: 'date',
+	direction: 'DESC',
+}));
 
 const enhance = compose(
+	withCurrPage,
 	withName,
-	withDate,
 	withPreNames,
 	withEditingIndex,
+	withSort,
 	withHandlers({
+		onPageChange: ({currPage, setCurPage}) => (e) => {
+			currPage = e.currentTarget.innerHTML
+			setCurPage(currPage)
+			// console.log('currPage: ', typeof currPage, currPage)
+		},
 		onInputChange: ({setName}) => (e) => setName(e.target.value),
-		onSaveClick: ({setPreNames, preNames, name, date, setDate}) => () => {
-			date = Date.now()
-			setDate(date)
-			
+		onSaveClick: ({setPreNames, preNames, name, sort}) => () => {
+			const sortBy = sort.name === 'name' ? sortByName : sortByDate;
+
 			if (preNames.length < 10){
 				preNames.unshift(
 					{
 						'name': name,
-						'date': date
+						'date': Date.now(),
 					}
 				)
-				setPreNames(preNames);
 			} else {
 				preNames.unshift(
 					{
 						'name': name,
-						'date': date
+						'date': Date.now(),
 					}
-				)
-				preNames.pop()
-				setPreNames(preNames);
+				);
+				preNames.pop();
 			}
-			
+			setPreNames(sortBy(preNames, sort.direction));
 		},
 		onNameClick: ({setName, preNames}) => ({ index }) => {
 			setName(preNames[index].name);
 		},
 		onNameChange: (props) => (newName, { index }) => {
-			const {setPreNames, preNames, setEditingIndex} = props;
+			const {setPreNames, preNames, setEditingIndex, sort} = props;
+			const sortBy = sort.name === 'name' ? sortByName : sortByDate;
 
 			preNames[index] = newName;
-			setPreNames(preNames);
+			setPreNames(sortBy(preNames, sort.direction));
 			setEditingIndex(-1);
 		},
 		onNameDeleteClick: ({setPreNames, preNames}) => ({ index }) => {
@@ -124,15 +168,12 @@ const enhance = compose(
 		onNameEditClick: (props) => ({ index }) => {
 			props.setEditingIndex(index);
 		},
+		onPreNamesSortChange: (props) => ({ name, direction }) => {
+			const sortBy = name === 'name' ? sortByName : sortByDate;
+
+			props.setSort({ name, direction });
+			props.setPreNames(sortBy(props.preNames, direction));
+		},
 	}))
 
 export default enhance(App);
-
-
-
-
-
-
-
-
-
