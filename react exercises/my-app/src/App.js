@@ -23,11 +23,12 @@ class App extends React.Component {
 			onSaveClick,
 			sort,
 			onPageChange,
-			currPage
+			currPage,
+			setCurPage
 		} = props;
 
 		const totalItemsCount = preNames.length;
-		const itemsPerPage = 3;
+		const itemsPerPage = 1;
 		const totalPages = Math.ceil(preNames.length/itemsPerPage);
 		const pageNeighbours = 1;
 
@@ -48,6 +49,7 @@ class App extends React.Component {
 					currPage={currPage}
 					pageNeighbours={pageNeighbours}
 					onPageChange={onPageChange}
+					setCurPage={setCurPage}
 				/>
 
 				<PreviousNamesTable

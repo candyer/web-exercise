@@ -1,12 +1,12 @@
 import React from 'react';
 
 function Page(props){
-	const { pageNumber, currPage, onPageChange} = props;
-	if (pageNumber + 1 == currPage) {
+	const { pageNumber, currPage, onPageChange, totalPages} = props;
+	if (pageNumber == currPage) {
 		return( 
 			<li className='active'>
 				<a href="javascript:;" onClick={onPageChange}>
-					{`${props.pageNumber + 1}`}
+					{pageNumber}
 				</a>
 			</li>
 		)
@@ -14,7 +14,7 @@ function Page(props){
 		return (
 			<li>
 				<a href="javascript:;" onClick={onPageChange}>
-					{`${props.pageNumber + 1}`}
+					{pageNumber}
 				</a>
 			</li>
 		)
