@@ -22,7 +22,6 @@ function Pagination(props){
 
 function renderPages(props){
 	const {totalPages, currPage, onPageChange, pageNeighbours, pages} = props
-	console.log('currpage', currPage, 'totalPages', totalPages, pages);
 
 	return pages.map((pageNumber, index) => {
 		if (pageNumber === -1) {

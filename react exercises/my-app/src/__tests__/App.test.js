@@ -81,6 +81,59 @@ describe('renders without crashing with chrome', () => {
 		browser.close();
 	}, DEFAULT_TIMEOUT_MS);
 
+
+	// test 4:
+	// add a new user to the table, check this user has been added at the first row
+	// then edit this user name to another name and confirm
+	// check this user name has been updated
+	// then delete this user
+	// check the user has been deleted
+	test('add a new name, update ', async () => {
+		const browser = await puppeteer.launch({
+			headless: true,
+		});
+		const page = await browser.newPage();
+		await page.goto(BASE_URL);
+
+		let newly_added_name = 'Harry Potter'
+		const nameOnFirstRow = await page.$eval('table > tbody > tr:nth-child(2) > td > a', e => {return e.innerHTML});
+
+		await page.waitForSelector('#root');
+		await page.click(inputNameSelector);
+		await page.focus(inputNameSelector);
+		await page.type(inputNameSelector, newly_added_name);
+		await page.click(saveButtonSelector);	
+
+		//check if the newly added name at the first row
+		expect('Harry Potter').toEqual(await page.$eval('table > tbody > tr:nth-child(2) > td > a', e => {return e.innerHTML}))
+
+		//edit the newly added name	and save
+		await page.waitForSelector('table > tbody > tr:nth-child(2) > td:nth-child(3) > .hovershow')
+		await page.click('table > tbody > tr:nth-child(2) > td:nth-child(3) > .hovershow') // click edit button
+		await page.waitForSelector('table > tbody > tr > td > input')
+		await page.click('table > tbody > tr > td > input') // click input field
+		newly_added_name = 'Hermione'
+		await page.type(inputNameSelector, newly_added_name); // type inside input field
+		await page.click('table > tbody > tr:nth-child(2) > td:nth-child(4) > button') // click confirm button
+
+		// check if the newly edited name at the first row
+		expect(newly_added_name == await page.$eval('table > tbody > tr:nth-child(2) > td > a', e => {return e.innerHTML}))
+
+		// delete newly added name
+		await page.waitForSelector('table > tbody > tr:nth-child(2) > td:nth-child(4) > .hovershow')
+		await page.click('table > tbody > tr:nth-child(2) > td:nth-child(4) > .hovershow')// click delete button
+
+		// check if the name as been deleted
+		expect(nameOnFirstRow).toEqual(await page.$eval('table > tbody > tr:nth-child(2) > td > a', e => {return e.innerHTML}))
+		browser.close();
+	}, DEFAULT_TIMEOUT_MS);
+
 });
+
+
+
+
+
+
 
 
