@@ -1,10 +1,10 @@
-import React from 'react';
+import { compose, withHandlers } from 'recompose';
+import formatDate from '../helpers/formatDate';
 import PreviousNameRowEditable from './PreviousNameRowEditable';
 import PreviousNameRowReadOnly from './PreviousNameRowReadOnly';
-import formatDate from '../helpers/formatDate';
+import React from 'react';
 import SortableColumn from './SortableColumn';
-import { compose, withState, withHandlers } from 'recompose';
-
+import withCurrentPageItems from '../containers/withCurrentPageItems';
 
 function PreviousNamesTable(props){
 	return (
@@ -41,19 +41,18 @@ function renderItems(props) {
 		onEditClick,
 		onNameChange,
 		onNameClick,
-		totalItemsCount,
 		itemsPerPage,
 		currPage,
 	} = props;
+	const startIndex = (currPage - 1) * itemsPerPage;
 
-	let start = (currPage - 1) * itemsPerPage
-	let end = Math.min(currPage * itemsPerPage, totalItemsCount)
+	return props.currentPageItems.map((row, index) => {
+		const absoluteIndex = index + startIndex;
 
-	return props.preNames.slice(start, end).map((row, index) => {
-		if (editingIndex === index) {
+		if (editingIndex === absoluteIndex) {
 			return <PreviousNameRowEditable
 				key={`${index}-${row.name}`}
-				index={index}
+				index={absoluteIndex}
 				name={row.name}
 				timeStamp={row.date}
 				date={formatDate(row.date)}
@@ -62,7 +61,7 @@ function renderItems(props) {
 		}
 		return <PreviousNameRowReadOnly
 			key={`${index}-${row.name}`}
-			index={index}
+			index={absoluteIndex}
 			name={row.name}
 			date={formatDate(row.date)}
 			onEditClick={onEditClick}
@@ -72,6 +71,7 @@ function renderItems(props) {
 }
 
 export default compose(
+	withCurrentPageItems,
 	withHandlers({
 		onSortChange: ({onSortChange}) => (name, direction) => {
 			const sortUpdated = (

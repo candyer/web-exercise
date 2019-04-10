@@ -1,9 +1,10 @@
 import React from 'react';
 import Page from './Page';
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, withPropsOnChange } from 'recompose';
 import showPages from '../helpers/showPages';
+
 function Pagination(props){
-	const {totalItemsCount, totalPages, itemsPerPage, currPage, pageNeighbours, onFirstPage, onPreviousPage, onNextPage, onLastPage} = props
+	const {totalItemsCount, itemsPerPage, currPage, onFirstPage, onPreviousPage, onNextPage, onLastPage} = props
 	return (
 		<div>
 			<p>Entries {1 + (currPage - 1) * itemsPerPage}-{Math.min(currPage * itemsPerPage, totalItemsCount)} of {totalItemsCount}</p>
@@ -20,36 +21,47 @@ function Pagination(props){
 }
 
 function renderPages(props){
-	const {totalPages, currPage, onPageChange, pageNeighbours} = props
-	let pages = showPages(currPage, pageNeighbours, totalPages)
-	console.log('currpage', currPage, 'totalPages', totalPages, pages)
+	const {totalPages, currPage, onPageChange, pageNeighbours, pages} = props
+	console.log('currpage', currPage, 'totalPages', totalPages, pages);
+
 	return pages.map((pageNumber, index) => {
 		if (pageNumber === -1) {
 			return <li key={index}>...</li>
 		} else {
-		return <Page 
-				key={`${index}`}
-				pageNumber={pageNumber}
-				currPage={currPage}
-				pageNeighbours={pageNeighbours}
-				totalPages={totalPages}
-				onPageChange={onPageChange}
-				/>
-		}
+			return <Page
+					key={index}
+					pageNumber={pageNumber}
+					currPage={currPage}
+					pageNeighbours={pageNeighbours}
+					totalPages={totalPages}
+					onPageChange={onPageChange}
+					/>
+			}
 	})
 }
 
 export default compose(
+	withPropsOnChange((props, nextProps) => (
+		props.totalPages !== nextProps.totalPages ||
+		props.currPage !== nextProps.currPage ||
+		props.pageNeighbours !== nextProps.pageNeighbours
+	), (props) => {
+		const {totalPages, currPage, pageNeighbours} = props;
+
+		return {
+			pages: showPages(currPage, pageNeighbours, totalPages),
+		};
+	}),
 	withHandlers({
-		onFirstPage: ({setCurPage}) => () => {
-			setCurPage(1)},
-		onPreviousPage: ({currPage, setCurPage}) => () => {
+		onFirstPage: ({onPageChange}) => () => {
+			onPageChange(1)},
+		onPreviousPage: ({currPage, onPageChange}) => () => {
 			currPage = Math.max(1, currPage - 1)
-			setCurPage(currPage)},
-		onNextPage: ({currPage, totalPages, setCurPage}) => () => {
+			onPageChange(currPage)},
+		onNextPage: ({currPage, totalPages, onPageChange}) => () => {
 			currPage = Math.min(parseInt(currPage) + 1, totalPages)
-			setCurPage(currPage)},
-		onLastPage: ({totalPages, setCurPage}) => () => {
-			setCurPage(totalPages)},
+			onPageChange(currPage)},
+		onLastPage: ({totalPages, onPageChange}) => () => {
+			onPageChange(totalPages)},
 	}),
 )(Pagination);

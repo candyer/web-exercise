@@ -26,9 +26,8 @@ class App extends React.Component {
 			currPage,
 			setCurPage
 		} = props;
-
 		const totalItemsCount = preNames.length;
-		const itemsPerPage = 1;
+		const itemsPerPage = 6;
 		const totalPages = Math.ceil(preNames.length/itemsPerPage);
 		const pageNeighbours = 1;
 
@@ -42,21 +41,20 @@ class App extends React.Component {
 					onChange={onInputChange}
 				/>
 				<button onClick={onSaveClick}>Save</button>
-				<Pagination 
+				<Pagination
 					totalItemsCount={totalItemsCount}
 					itemsPerPage={itemsPerPage}
 					totalPages={totalPages}
 					currPage={currPage}
 					pageNeighbours={pageNeighbours}
 					onPageChange={onPageChange}
-					setCurPage={setCurPage}
 				/>
 
 				<PreviousNamesTable
 					totalItemsCount={totalItemsCount}
 					itemsPerPage={itemsPerPage}
 					currPage={currPage}
-									
+
 					editingIndex={editingIndex}
 					onDeleteClick={onNameDeleteClick}
 					onEditCancel={onNameEditCancel}
@@ -74,7 +72,7 @@ class App extends React.Component {
 }
 const withCurrPage = withState('currPage', 'setCurPage', '1')
 const withName = withState('name', 'setName', '');
-const withPreNames = withState('preNames', 'setPreNames', [
+const withPreNames = withState('preNames', 'setPreNames', sortByDate([
 	{
 		'name': 'Dave',
 		'date': 1523591603308,
@@ -87,7 +85,7 @@ const withPreNames = withState('preNames', 'setPreNames', [
 		'name': 'Alice',
 		'date': 89160330821,
 	},
-	{	'name': 'Zoe',
+	{	'name': 'Ryan',
 		'date': 278987654,
 	},
 	{	'name': 'Aria',
@@ -100,7 +98,7 @@ const withPreNames = withState('preNames', 'setPreNames', [
 		'date': 3456,
 	},
 	{	'name': 'sam',
-		'date': 5765438765432,
+		'date': 565438765432,
 	},
 	{	'name': 'Jim',
 		'date': 765438765432,
@@ -111,7 +109,7 @@ const withPreNames = withState('preNames', 'setPreNames', [
 	{
 		'name': 'Elsa',
 		'date': 345678987654,
-	},]);
+	},], 'DESC'));
 
 const withEditingIndex = withState('editingIndex', 'setEditingIndex', -1);
 const withSort = withState('sort', 'setSort', () => ({
@@ -126,9 +124,8 @@ const enhance = compose(
 	withEditingIndex,
 	withSort,
 	withHandlers({
-		onPageChange: ({currPage, setCurPage}) => (e) => {
-			currPage = e.currentTarget.innerHTML
-			setCurPage(currPage)
+		onPageChange: ({setCurPage}) => (pageNum) => {
+			setCurPage(pageNum)
 		},
 		onInputChange: ({setName}) => (e) => setName(e.target.value),
 		onSaveClick: ({setPreNames, preNames, name, sort}) => () => {

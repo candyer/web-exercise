@@ -23,5 +23,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "jest-puppeteer-preset": "^4.1.0",
+    "puppeteer": "^1.14.0"
+  }
 }
