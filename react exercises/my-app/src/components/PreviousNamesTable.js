@@ -45,7 +45,7 @@ function renderItems(props) {
 		currPage,
 		copy,
 		setCopy,
-		setDisable,
+		setSearchDisabled,
 	} = props;
 	const startIndex = (currPage - 1) * itemsPerPage;
 	return props.currentPageItems.map((row, index) => {
@@ -62,7 +62,7 @@ function renderItems(props) {
 				date={formatDate(row.date)}
 				onChange={onNameChange}
 				onCancel={onEditCancel}
-				setDisable={setDisable} />;
+				setSearchDisabled={setSearchDisabled} />;
 		}
 		return <PreviousNameRowReadOnly
 			key={`${index}-${row.name}`}

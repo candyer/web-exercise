@@ -2,7 +2,8 @@ import { BASE_URL, DEFAULT_TIMEOUT_MS } from '../test-config';
 import puppeteer from 'puppeteer';
 
 describe('renders without crashing with chrome', () => {
-	const inputNameSelector = '#root input[placeholder="name"]';
+	// const inputNameSelector = '#root div > input[placeholder="add a name"]';
+	const inputNameSelector = '#root > div > input';
 	const saveButtonSelector = '#root > div > button';
 	const headerSelector = '#root > div > h2';
 
@@ -127,6 +128,9 @@ describe('renders without crashing with chrome', () => {
 		expect(nameOnFirstRow).toEqual(await page.$eval('table > tbody > tr:nth-child(2) > td > a', e => {return e.innerHTML}))
 		browser.close();
 	}, DEFAULT_TIMEOUT_MS);
+
+
+
 
 });
 

@@ -29,8 +29,8 @@ class App extends React.Component {
 			setCurPage,
 			copy,
 			setCopy,
-			disable,
-			setDisable,
+			searchDisabled,
+			setSearchDisabled,
 		} = props;
 		const totalItemsCount = preNames.length;
 		const itemsPerPage = 6;
@@ -60,7 +60,7 @@ class App extends React.Component {
 					preNames={preNames}
 					setPreNames={setPreNames}
 					copy={copy}
-					disable={disable}
+					searchDisabled={searchDisabled}
 				/>
 
 				<PreviousNamesTable
@@ -78,7 +78,7 @@ class App extends React.Component {
 					preNames={preNames}
 					copy={copy}
 					setCopy={setCopy}
-					setDisable={setDisable}
+					setSearchDisabled={setSearchDisabled}
 				/>
 			</div>
 		)
@@ -165,7 +165,7 @@ const withCopy = withState('copy', 'setCopy', sortByDate([
 		'date': 345678987654,
 	},], 'DESC'));
 
-const withDisable = withState('disable', 'setDisable', '')
+const withSearchDisabled = withState('searchDisabled', 'setSearchDisabled', '')
 const withEditingIndex = withState('editingIndex', 'setEditingIndex', -1);
 const withSort = withState('sort', 'setSort', () => ({
 	name: 'date',
@@ -177,7 +177,7 @@ const enhance = compose(
 	withName,
 	withPreNames,
 	withEditingIndex,
-	withDisable,
+	withSearchDisabled,
 	withSort,
 	withCopy,
 	withHandlers({
@@ -230,11 +230,11 @@ const enhance = compose(
 		},
 		onNameEditCancel: (props) => () => {
 			props.setEditingIndex(-1);
-			props.setDisable('')
+			props.setSearchDisabled('')
 		},
 		onNameEditClick: (props) => ({ index }) => {
 			props.setEditingIndex(index);
-			props.setDisable('disabled')
+			props.setSearchDisabled('disabled')
 		},
 		onPreNamesSortChange: (props) => ({ name, direction }) => {
 			const sortBy = name === 'name' ? sortByName : sortByDate
@@ -244,3 +244,4 @@ const enhance = compose(
 	}))
 
 export default enhance(App);
+
