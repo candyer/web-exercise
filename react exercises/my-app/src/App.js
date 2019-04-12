@@ -2,6 +2,7 @@ import React from 'react';
 import NameOrPlaceholder from './components/NameOrPlaceholder';
 import PreviousNamesTable from './components/PreviousNamesTable';
 import Pagination from './components/Pagination';
+import Search from './components/Search';
 import sortByName from './helpers/sortByName';
 import sortByDate from './helpers/sortByDate';
 import { withState, compose, withHandlers } from 'recompose';
@@ -12,6 +13,7 @@ class App extends React.Component {
 		const {
 			name,
 			preNames,
+			setPreNames,
 			editingIndex,
 			onInputChange,
 			onNameClick,
@@ -24,7 +26,11 @@ class App extends React.Component {
 			sort,
 			onPageChange,
 			currPage,
-			setCurPage
+			setCurPage,
+			copy,
+			setCopy,
+			disable,
+			setDisable,
 		} = props;
 		const totalItemsCount = preNames.length;
 		const itemsPerPage = 6;
@@ -36,7 +42,7 @@ class App extends React.Component {
 				<NameOrPlaceholder name={name} />
 				<input
 					type="text"
-					placeholder="name"
+					placeholder="add a name"
 					value={name}
 					onChange={onInputChange}
 				/>
@@ -50,11 +56,17 @@ class App extends React.Component {
 					onPageChange={onPageChange}
 				/>
 
+				<Search 
+					preNames={preNames}
+					setPreNames={setPreNames}
+					copy={copy}
+					disable={disable}
+				/>
+
 				<PreviousNamesTable
 					totalItemsCount={totalItemsCount}
 					itemsPerPage={itemsPerPage}
 					currPage={currPage}
-
 					editingIndex={editingIndex}
 					onDeleteClick={onNameDeleteClick}
 					onEditCancel={onNameEditCancel}
@@ -64,6 +76,9 @@ class App extends React.Component {
 					sort={sort}
 					onSortChange={onPreNamesSortChange}
 					preNames={preNames}
+					copy={copy}
+					setCopy={setCopy}
+					setDisable={setDisable}
 				/>
 			</div>
 		)
@@ -111,6 +126,46 @@ const withPreNames = withState('preNames', 'setPreNames', sortByDate([
 		'date': 345678987654,
 	},], 'DESC'));
 
+const withCopy = withState('copy', 'setCopy', sortByDate([
+	{
+		'name': 'Dave',
+		'date': 1523591603308,
+	},
+	{
+		'name': 'adam',
+		'date': 9916033081,
+	},
+	{
+		'name': 'Alice',
+		'date': 89160330821,
+	},
+	{	'name': 'Ryan',
+		'date': 278987654,
+	},
+	{	'name': 'Aria',
+		'date': 133278987654,
+	},
+	{	'name': 'Jon snow',
+		'date': 733278987654,
+	},
+	{	'name': 'Jamie',
+		'date': 3456,
+	},
+	{	'name': 'sam',
+		'date': 565438765432,
+	},
+	{	'name': 'Jim',
+		'date': 765438765432,
+	},
+	{	'name': 'Pam',
+		'date': 87654387654,
+	},
+	{
+		'name': 'Elsa',
+		'date': 345678987654,
+	},], 'DESC'));
+
+const withDisable = withState('disable', 'setDisable', '')
 const withEditingIndex = withState('editingIndex', 'setEditingIndex', -1);
 const withSort = withState('sort', 'setSort', () => ({
 	name: 'date',
@@ -122,15 +177,16 @@ const enhance = compose(
 	withName,
 	withPreNames,
 	withEditingIndex,
+	withDisable,
 	withSort,
+	withCopy,
 	withHandlers({
 		onPageChange: ({setCurPage}) => (pageNum) => {
 			setCurPage(pageNum)
 		},
 		onInputChange: ({setName}) => (e) => setName(e.target.value),
-		onSaveClick: ({setPreNames, preNames, name, sort}) => () => {
+		onSaveClick: ({setPreNames, preNames, name, sort, setCopy}) => () => {
 			const sortBy = sort.name === 'name' ? sortByName : sortByDate;
-
 			if (preNames.length < 150){
 				preNames.unshift(
 					{
@@ -138,6 +194,7 @@ const enhance = compose(
 						'date': Date.now(),
 					}
 				)
+				setCopy(preNames)
 			} else {
 				preNames.unshift(
 					{
@@ -146,6 +203,7 @@ const enhance = compose(
 					}
 				);
 				preNames.pop();
+				setCopy(preNames)
 			}
 			setPreNames(sortBy(preNames, sort.direction));
 		},
@@ -153,26 +211,33 @@ const enhance = compose(
 			setName(preNames[index].name);
 		},
 		onNameChange: (props) => (newName, { index }) => {
-			const {setPreNames, preNames, setEditingIndex, sort} = props;
+			const {setCopy, setPreNames, preNames, setEditingIndex, sort} = props;
 			const sortBy = sort.name === 'name' ? sortByName : sortByDate;
 
 			preNames[index] = newName;
 			setPreNames(sortBy(preNames, sort.direction));
+			setCopy(preNames)
 			setEditingIndex(-1);
 		},
-		onNameDeleteClick: ({setPreNames, preNames}) => ({ index }) => {
+		onNameDeleteClick: ({setPreNames, preNames, copy, setCopy}) => ({ index }) => {
+			let deleted_person = preNames[index]
 			preNames.splice(index, 1);
 			setPreNames(preNames);
+			copy = copy.filter(person => {
+				return person.name !== deleted_person.name && person.date !== deleted_person.date
+			})
+			setCopy(copy)
 		},
 		onNameEditCancel: (props) => () => {
 			props.setEditingIndex(-1);
+			props.setDisable('')
 		},
 		onNameEditClick: (props) => ({ index }) => {
 			props.setEditingIndex(index);
+			props.setDisable('disabled')
 		},
 		onPreNamesSortChange: (props) => ({ name, direction }) => {
-			const sortBy = name === 'name' ? sortByName : sortByDate;
-
+			const sortBy = name === 'name' ? sortByName : sortByDate
 			props.setSort({ name, direction });
 			props.setPreNames(sortBy(props.preNames, direction));
 		},

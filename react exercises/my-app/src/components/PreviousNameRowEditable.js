@@ -2,8 +2,8 @@ import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 
 function PreviousNameRowEditable(props){
-	const { editName, date, onCancelClick, onConfirmClick, onInputChange } = props;
-
+	const { copy, setCopy, editName, date, onCancelClick, onConfirmClick, onInputChange, setDisable} = props;
+	console.log('copy:', copy)
 	return <tr>
 		<td>
 			<input type='text' value={editName} onChange={onInputChange} />
@@ -31,9 +31,11 @@ export default compose(
 		},
 		onConfirmClick: (props) => () => {
 			props.onChange({'name':props.editName, 'date': props.timeStamp}, { index: props.index });
+			props.setDisable('')
 		},
 		onInputChange: (props) => (event) => {
 			props.setEditName(event.currentTarget.value);
+			props.copy[props.index].name = event.currentTarget.value
 		},
 	}),
 )(PreviousNameRowEditable);

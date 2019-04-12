@@ -43,21 +43,26 @@ function renderItems(props) {
 		onNameClick,
 		itemsPerPage,
 		currPage,
+		copy,
+		setCopy,
+		setDisable,
 	} = props;
 	const startIndex = (currPage - 1) * itemsPerPage;
-
 	return props.currentPageItems.map((row, index) => {
 		const absoluteIndex = index + startIndex;
 
 		if (editingIndex === absoluteIndex) {
 			return <PreviousNameRowEditable
 				key={`${index}-${row.name}`}
+				copy={copy}
+				setCopy={setCopy}
 				index={absoluteIndex}
 				name={row.name}
 				timeStamp={row.date}
 				date={formatDate(row.date)}
 				onChange={onNameChange}
-				onCancel={onEditCancel} />;
+				onCancel={onEditCancel}
+				setDisable={setDisable} />;
 		}
 		return <PreviousNameRowReadOnly
 			key={`${index}-${row.name}`}
