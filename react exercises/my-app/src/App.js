@@ -3,9 +3,11 @@ import NameOrPlaceholder from './components/NameOrPlaceholder';
 import PreviousNamesTable from './components/PreviousNamesTable';
 import Pagination from './components/Pagination';
 import Search from './components/Search';
+import ThemeToggle from './components/ThemeToggle';
 import sortByName from './helpers/sortByName';
 import sortByDate from './helpers/sortByDate';
 import { withState, compose, withHandlers } from 'recompose';
+
 
 class App extends React.Component {
 	render() {
@@ -39,6 +41,7 @@ class App extends React.Component {
 
 		return (
 			<div>
+				<ThemeToggle />
 				<NameOrPlaceholder name={name} />
 				<input
 					type="text"
