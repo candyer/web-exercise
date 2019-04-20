@@ -1,0 +1,70 @@
+.pinwheel{
+	position: absolute;
+	left: 50%;
+	top: 10%;
+}
+
+.pieces {
+	height: 400px;
+	animation: rotation 4s infinite ease-in-out;
+}
+
+.pieces:hover {
+	animation: rotation none;
+}
+
+.stick {
+	position: absolute;
+	height: 600px;
+	width: 20px;
+	background: #e5c050;
+	border-radius: 5px;
+	top: 180px;
+	left: -10px;
+}
+
+.piece1 {
+	position: absolute;
+	height:200px;
+	width:100px;
+	border-radius: 0 100px 100px 0;
+	background: #fcec11;
+}
+
+.piece2 {
+	position: absolute;
+	height:100px;
+	width:200px;
+	border-radius: 0 0 100px 100px;
+	background: #d058fc;
+	top: 200px;
+}
+
+.piece3 {
+	position: absolute;
+	height:200px;
+	width:100px;
+	border-radius: 100px 0 0 100px;	
+	background: salmon;
+	top: 200px;
+	right: 0px;
+}
+
+.piece4 {
+	position: absolute;
+	height:100px;
+	width:200px;
+	border-radius: 100px 100px 0 0;	
+	background: #58a1fc;
+	top: 100px;
+	right: 0px;
+}
+
+@keyframes rotation {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
