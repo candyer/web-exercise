@@ -1,1 +1,1 @@
-<img src='pinwhell.gif'>
+<img src='pinwheel.gif'>
