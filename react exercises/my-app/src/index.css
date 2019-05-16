@@ -14,10 +14,43 @@ code {
     monospace;
 }
 
+button.dark{
+  background: #666;
+  color: #ccc;  
+  transition: background-color 0.8s, color 0.8s;
+}
+
 button {
 	border-radius: 10px;
 	outline: none;
+  background: #fff;
+  color: #000;
+  transition: background-color 0.8s, color 0.8s;
 }
+
+/*.edit.dark{
+  background: #666;
+  color: #ccc;  
+  transition: background-color 0.8s, color 0.8s;
+}
+
+.edit{
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+  color: #000;
+}*/
+
+/*input.dark {
+  background: #ccc;
+  color: #000;   
+}
+
+input {
+  background: #fff;
+  color: #000;   
+}*/
+
 
 table {
   min-width: 80%;
@@ -33,6 +66,7 @@ tr:hover .hovershow {
   opacity: 1.0;
   color: red;
 }
+
 
 a {
   text-decoration: none;
@@ -63,16 +97,15 @@ li {
 .lightMode {
   background-color: #fff;
   color: #000;
-  /*transition: background-color 0.8s ease;*/
-  transition: background-color 0.8s, color 0.8s ease;
+  transition: background-color 0.8s, color 0.8s;
 }
 
 .darkMode {
   background-color: #666;
   color: #ccc;
-  /*transition: background-color 0.8s ease;*/
-  transition: background-color 0.8s, color 0.8s ease;
+  transition: background-color 0.8s, color 0.8s;
 }
+
 
 
 

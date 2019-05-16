@@ -6,11 +6,15 @@
     text-decoration: underline;
 }
 
+.sortable-column.dark > .sort-icon:before {
+    border-color: transparent transparent #ccc transparent;
+}
+
 .sortable-column > .sort-icon:before {
     position: absolute;
     margin-top: 5px;
     margin-left: 10px;
-    content: ' ';
+    content: '';
     width: 0;
     height: 0;
     border-style: solid;

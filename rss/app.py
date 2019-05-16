@@ -43,7 +43,7 @@ def get_temporary_link():
 			"path": path
 		}
 		r = requests.post(url, headers=headers, data=json.dumps(data))		
-		urls.append((r.json()['metadata']['size'], r.json()['link']))
+		urls.append((r.json()['metadata']['size'], r.json()['link'], r.json()['metadata']['id']))
 	return urls
 
 
@@ -57,9 +57,10 @@ def index():
 	p.website = "LINK HERE"
 	p.explicit = True	
 
-	for i, (size, url) in enumerate(urls):
+	for i, (size, url, uid) in enumerate(urls):
 		my_episode = Episode()
 		my_episode.title = "ambience music {}".format(i + 1)
+		my_episode.id = uid
 		my_episode.media = Media(url,
 								 size=size,
 								 type="audio/mpeg")
@@ -70,31 +71,6 @@ def index():
 
 
 app.run(host='0.0.0.0', port=environ.get('PORT'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
