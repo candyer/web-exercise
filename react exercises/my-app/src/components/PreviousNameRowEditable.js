@@ -1,23 +1,29 @@
 import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
+import { ThemeContext } from "../App";
 
 function PreviousNameRowEditable(props){
 	const { copy, setCopy, editName, date, onCancelClick, onConfirmClick, onInputChange, setSearchDisabled} = props;
-	console.log('copy:', copy)
-	return <tr>
-		<td>
-			<input type='text' value={editName} onChange={onInputChange} />
-		</td>
-		<td>
-			<div>{date}</div>
-		</td>
-		<td>
-			<button onClick={onCancelClick}> Cancel </button>
-		</td>
-		<td>
-			<button onClick={onConfirmClick}> Confirm </button>
-		</td>
-	</tr>;
+	return (
+		<ThemeContext.Consumer>
+		{theme =>
+			<tr>
+				<td>
+					<input type='text' value={editName} onChange={onInputChange} />
+				</td>
+				<td>
+					<div>{date}</div>
+				</td>
+				<td>
+					<button className={theme} onClick={onCancelClick}> Cancel </button>
+				</td>
+				<td>
+					<button className={theme} onClick={onConfirmClick}> Confirm </button>
+				</td>
+			</tr>
+		}
+		</ThemeContext.Consumer>
+	)
 }
 
 const withEditName = withState('editName', 'setEditName', (props) => props.name);

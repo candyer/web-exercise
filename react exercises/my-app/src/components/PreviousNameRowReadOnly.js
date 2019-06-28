@@ -1,22 +1,30 @@
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
+import { ThemeContext } from "../App";
 
 function PreviousNameRowReadOnly(props){
 	const { name, date, onEditClick, onDeleteClick, onNameClick } = props;
-	return <tr>
-		<td>
-			<a href="javascript:;" onClick={onNameClick}>{name}</a>
-		</td>
-		<td>
-			<div >{date}</div>
-		</td>
-		<td>
-			<button className='hovershow' onClick={onEditClick}> Edit </button>
-		</td>
-		<td>
-			<button className='hovershow' onClick={onDeleteClick}> Delete </button>
-		</td>
-	</tr>;
+	return (
+		<ThemeContext.Consumer>
+		{theme =>
+			<tr>
+				<td>
+					<a href="javascript:;" onClick={onNameClick}>{name}</a>
+				</td>
+				<td>
+					<div >{date}</div>
+				</td>
+				<td>
+					<button className={`hovershow ${theme}`} onClick={onEditClick}> Edit </button>
+				</td>
+				<td>
+					<button className={`hovershow ${theme}`} onClick={onDeleteClick}> Delete </button>
+				</td>
+			</tr>
+		}
+		</ThemeContext.Consumer>
+	)
+	
 }
 
 export default compose(

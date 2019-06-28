@@ -3,13 +3,27 @@ import NameOrPlaceholder from './components/NameOrPlaceholder';
 import PreviousNamesTable from './components/PreviousNamesTable';
 import Pagination from './components/Pagination';
 import Search from './components/Search';
-import ThemeToggle from './components/ThemeToggle';
 import sortByName from './helpers/sortByName';
 import sortByDate from './helpers/sortByDate';
 import { withState, compose, withHandlers } from 'recompose';
 
 
+export const ThemeContext = React.createContext('light');
+
 class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			theme: "light"
+		};
+
+		this.toggleTheme = () => {
+			this.setState(state => ({
+				theme: state.theme === "dark" ? "light" : "dark"
+			}));
+		};
+	}
+
 	render() {
 		const props = this.props;
 		const {
@@ -40,50 +54,60 @@ class App extends React.Component {
 		const pageNeighbours = 1;
 
 		return (
-			<div>
-				<ThemeToggle />
-				<NameOrPlaceholder name={name} />
-				<input
-					type="text"
-					placeholder="add a name"
-					value={name}
-					onChange={onInputChange}
-				/>
-				<button onClick={onSaveClick}>Save</button>
-				<Pagination
-					totalItemsCount={totalItemsCount}
-					itemsPerPage={itemsPerPage}
-					totalPages={totalPages}
-					currPage={currPage}
-					pageNeighbours={pageNeighbours}
-					onPageChange={onPageChange}
-				/>
+			<ThemeContext.Provider value={this.state.theme}>
+				<div className={`theme ${this.state.theme}`}>
+					<button 
+						onClick={this.toggleTheme} 
+						className={this.state.theme}>
+							{this.state.theme} mode
+					</button>
+					<NameOrPlaceholder name={name} />
+					<input
+						type="text"
+						placeholder="add a name"
+						value={name}
+						onChange={onInputChange}
+					/>
+					<button 
+						onClick={onSaveClick}
+						className={this.state.theme}>
+							Save
+					</button>
+					<Pagination
+						totalItemsCount={totalItemsCount}
+						itemsPerPage={itemsPerPage}
+						totalPages={totalPages}
+						currPage={currPage}
+						pageNeighbours={pageNeighbours}
+						onPageChange={onPageChange}
+					/>
 
-				<Search 
-					preNames={preNames}
-					setPreNames={setPreNames}
-					copy={copy}
-					searchDisabled={searchDisabled}
-				/>
+					<Search 
+						preNames={preNames}
+						setPreNames={setPreNames}
+						copy={copy}
+						searchDisabled={searchDisabled}
+					/>
 
-				<PreviousNamesTable
-					totalItemsCount={totalItemsCount}
-					itemsPerPage={itemsPerPage}
-					currPage={currPage}
-					editingIndex={editingIndex}
-					onDeleteClick={onNameDeleteClick}
-					onEditCancel={onNameEditCancel}
-					onEditClick={onNameEditClick}
-					onNameChange={onNameChange}
-					onNameClick={onNameClick}
-					sort={sort}
-					onSortChange={onPreNamesSortChange}
-					preNames={preNames}
-					copy={copy}
-					setCopy={setCopy}
-					setSearchDisabled={setSearchDisabled}
-				/>
-			</div>
+					<PreviousNamesTable
+						totalItemsCount={totalItemsCount}
+						itemsPerPage={itemsPerPage}
+						currPage={currPage}
+						editingIndex={editingIndex}
+						onDeleteClick={onNameDeleteClick}
+						onEditCancel={onNameEditCancel}
+						onEditClick={onNameEditClick}
+						onNameChange={onNameChange}
+						onNameClick={onNameClick}
+						sort={sort}
+						onSortChange={onPreNamesSortChange}
+						preNames={preNames}
+						copy={copy}
+						setCopy={setCopy}
+						setSearchDisabled={setSearchDisabled}
+					/>
+				</div>
+			</ThemeContext.Provider>
 		)
 
 	}
@@ -247,4 +271,3 @@ const enhance = compose(
 	}))
 
 export default enhance(App);
-
