@@ -1,0 +1,29 @@
+h1 {
+  text-align: center;
+  box-shadow: 2px 20px 15px salmon;
+}
+.week {
+  display: flex;
+  justify-content: center;
+
+}
+
+.day {
+  width: 150px;
+  margin: 10px;
+  text-align: center;
+  list-style-position: inside;
+  box-shadow: 5px 5px 30px -5px black;
+  list-style-type: none;
+}
+
+.sign {
+  font-size: 60px;
+}
+
+.hour {
+  box-shadow: 5px 5px 30px -5px black;
+  width: 20%;
+  margin-left: 40%;
+  text-align: center;
+}
