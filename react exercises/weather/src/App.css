@@ -1,0 +1,65 @@
+.App {
+	text-align: center;
+}
+
+input {
+	width: 15%;
+	padding: 15px;
+	margin-right: 10px;
+	display: inline-block;
+	border: none;
+	background: #ddd;  
+	border-radius: 25px;
+	font-size: 15px;
+}
+
+input:focus {
+	background-color: #bbb;
+	outline: none;
+}
+
+button {
+	background-color: salmon;
+	color: white;
+	padding: 15px;
+	border: none;
+	cursor: pointer;
+	width: 10%;
+	opacity: 0.8;
+	outline: none;
+	border-radius: 25px;
+	font-size: 15px;
+}
+
+button:hover {
+	opacity: 1;
+}
+
+.curr {
+	margin-top: 10px;
+}
+
+img {
+	height: 60px;
+}
+
+.day {
+	display: flex;
+	justify-content: space-around;
+}
+
+.hours {
+	display: flex;
+	overflow: scroll;
+}
+
+.hour {
+	background: salmon;
+	margin: 5px;
+	box-shadow: 5px 5px 15px -5px black;
+	border-radius: 5px
+}
+
+
+
+
