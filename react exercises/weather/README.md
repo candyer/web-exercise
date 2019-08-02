@@ -1,6 +1,7 @@
+<img src='screenshot.png'>
 
 ## [OpenWeather API](https://openweathermap.org/api)
-## how to [hide API key](https://stackoverflow.com/questions/48699820/how-do-i-hide-api-key-in-create-react-app/48699914)
+## [how to hide API key](https://stackoverflow.com/questions/48699820/how-do-i-hide-api-key-in-create-react-app/48699914)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
